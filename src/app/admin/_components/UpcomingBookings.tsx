@@ -28,8 +28,8 @@ export default function UpcomingBookings({ bookings }: TUpcomingBookings) {
 
       <Carousel>
         <CarouselContent>
-          {bookings.map((booking) => (
-            <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/5 ">
+          {bookings && bookings.map((booking) => (
+            <CarouselItem id={booking.id.toString()} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/5 ">
                 <article className="p-5 bg-amber-900 rounded-md relative flex items-start justify-between">
                     <div className="left">
                     <h1 className="font-black text-2xl opacity-30 text-amber-100">{format(booking.booking_date, {time: 'short'})}</h1>
