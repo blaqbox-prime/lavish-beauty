@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from '@/app/admin/_components/Sidebar'
 import MobileNav from "./_components/MobileNav";
+import { usePathname } from "next/navigation";
 
 function layout({
   children,
@@ -8,7 +9,6 @@ function layout({
   children: React.ReactNode;
 }>) {
 
-   
 
   return (
     <div className="flex md:flex-row flex-col">

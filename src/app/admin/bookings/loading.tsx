@@ -6,7 +6,7 @@ type Props = {}
 
 function loading({}: Props) {
   return (
-    <div className='w-screen h-screen flex flex-col items-center justify-center gap-4'>
+    <div className='w-full h-screen flex flex-col items-center justify-center gap-4'>
         <Rings
   visible={true}
   height="150"

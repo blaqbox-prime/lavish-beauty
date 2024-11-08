@@ -16,11 +16,22 @@ type TUpcomingBookings = {
   bookings: BookingRecord[];
 };
 
-export default function UpcomingBookings({ bookings }: TUpcomingBookings) {
+export default async function UpcomingBookings() {
+  
+  const res = await fetch("http://localhost:3000/api/admin/bookings/upcoming");
+  const bookings: BookingRecord[] = await res.json();
+
+  if (!bookings || bookings.length == 0) {
+    return null
+  }
+
   return (
-    <section className="mb-6">
+    <motion.section className="mb-6"
+    // initial={{ opacity: 0, top: -100}}  
+    // animate={{ opacity: 1, top: 0}}
+    >
       <motion.h1
-        className="font-bold text-2xl mb-4 opacity-0"
+        className="font-bold text-2xl mb-4"
         animate={{ opacity: 1 }}
       >
         Upcoming Bookings
@@ -29,10 +40,10 @@ export default function UpcomingBookings({ bookings }: TUpcomingBookings) {
       <Carousel>
         <CarouselContent>
           {bookings &&
-            bookings.map((booking) => (
+            bookings.map((booking: BookingRecord) => (
               <CarouselItem
-                id={booking.id.toString()}
-                className="sm:basis-1/2 lg:basis-1/4 "
+                key={booking.id.toString()}
+                className="sm:basis-1/2 lg:basis-1/4 cursor-pointer"
               >
                 <article className="p-5 bg-amber-900 rounded-md relative flex h-44 items-start justify-between">
                   <div className="left flex flex-col h-full justify-between">
@@ -60,6 +71,6 @@ export default function UpcomingBookings({ bookings }: TUpcomingBookings) {
             ))}
         </CarouselContent>
       </Carousel>
-    </section>
+    </motion.section>
   );
 }

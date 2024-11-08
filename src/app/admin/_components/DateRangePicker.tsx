@@ -21,10 +21,8 @@ interface IDateRangePicker extends React.HTMLAttributes<HTMLDivElement>{
 }
 
 export default function DateRangePicker({className, fromDate, toDate}: IDateRangePicker) {
-    const [date, setDate] = React.useState<DateRange | undefined>({
-        from: fromDate || new Date(),
-        to: toDate || addDays(new Date(), 30),
-      })
+    const [date, setDate] = React.useState<DateRange | undefined>(
+        fromDate && toDate ? { from: fromDate, to: toDate } : undefined)
 
       const setStartDate = useBookings((state: any) => state.setStartDate)
       const setEndDate = useBookings((state: any) => state.setEndDate)

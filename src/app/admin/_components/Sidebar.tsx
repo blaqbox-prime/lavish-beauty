@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { BookOpenText, Home, Palette, Table, User } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface ISidebar {
   className?: string;
@@ -10,16 +11,21 @@ interface ISidebar {
 function Sidebar({ className = "" }: ISidebar) {
   const [activeTab, setActiveTab] = useState(0);
 
+  const path = usePathname();
+  console.log(path)
+   
+
   const icons = [
     {
       title: "Home",
       link: "/admin/dashboard",
       icon: (
         <Home
-          className={`text-slate-400 hover:text-slate-500 transition-all duration-300 ${
-            0 == activeTab && "text-pink-700"
+          className={`text-slate-400 hover:text-amber-500 transition-all duration-300 ${
+            path.startsWith("/admin/dashboard") && "text-amber-700"
           } `}
           size={16}
+          // color={`${path.startsWith("/admin/dashboard") && "#b45309"}`}
         />
       ),
     },
@@ -29,8 +35,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/bookings",
       icon: (
         <BookOpenText
-          className={`text-slate-400  hover:text-slate-500 transition-all duration-300 ${
-            1 == activeTab && "text-pink-700"
+          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
+            path.startsWith("/admin/bookings") && "text-amber-700"
           } `}
           size={16}
         />
@@ -42,8 +48,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/services",
       icon: (
         <Palette
-          className={`text-slate-400  hover:text-slate-500 transition-all duration-300 ${
-            2 == activeTab && "text-pink-700"
+          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
+            path.startsWith("/admin/services") && "text-amber-700"
           } `}
           size={16}
         />
@@ -55,8 +61,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/clients",
       icon: (
         <User
-          className={`text-slate-400  hover:text-slate-500 transition-all duration-300 ${
-            3 == activeTab && "text-pink-700"
+          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
+            path.startsWith("/admin/clients") && "text-amber-700"
           } `}
           size={16}
         />
@@ -68,8 +74,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/invoices",
       icon: (
         <Table
-          className={`text-slate-400  hover:text-slate-500 transition-all duration-300 ${
-            4 == activeTab && "text-pink-700"
+          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
+            path.startsWith("/admin/invoices") && activeTab && "text-amber-700"
           } `}
           size={16}
         />
@@ -89,7 +95,7 @@ function Sidebar({ className = "" }: ISidebar) {
           }}
           key={idx}
           className={`cursor-pointer px-5 ${
-            idx == activeTab && "text-slate-500 border-r-2 border-pink-500"
+            path.startsWith(icon.link) && "text-amber-500 border-r-2 border-amber-500"
           } transition-all duration-200`}
         >
           {icon.icon}
