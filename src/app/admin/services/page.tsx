@@ -71,7 +71,7 @@ function page({}: Props) {
         </DialogHeader>
 
           {/* The FORM */}
-          <EditServiceForm />
+          <EditServiceForm service={null} />
 
         </DialogContent>
 
