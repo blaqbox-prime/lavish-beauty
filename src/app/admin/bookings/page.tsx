@@ -2,14 +2,10 @@ import { Button } from "@/components/ui/button";
 
 import { Plus } from "lucide-react";
 import * as motion from "framer-motion/client";
-import TableOfBookings from "../_components/TableOfBookings";
-import { useBookings } from "@/zustand/store";
 
 import UpcomingBookings from "../_components/UpcomingBookings";
-import { filterUpcomingBookings } from "@/lib/utils";
 import BookingsView from "../_components/BookingsView";
-import { BookingRecord } from "@/types";
-import { useSearchParams } from "next/navigation";
+
 
 function Bookings() {
   return (
