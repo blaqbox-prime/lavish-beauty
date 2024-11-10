@@ -11,6 +11,8 @@ import { format } from "@formkit/tempo";
 import { User } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 import { BASE_URL } from "@/lib/utils";
+import { NextResponse } from "next/server";
+import supabase from "@/database/supabase";
 
 type TUpcomingBookings = {
   bookings: BookingRecord[];
@@ -19,8 +21,13 @@ type TUpcomingBookings = {
 
 export default async function UpcomingBookings() {
   
-  const res = await fetch(`${BASE_URL}/api/admin/bookings/upcoming`);
-  const bookings: BookingRecord[] = await res.json();
+  const res = await supabase
+  .from('bookings')
+  .select('*, customer(*)')
+  .gte('booking_date', new Date().toISOString())
+  .order('booking_date',{ascending: true})
+
+  const bookings: BookingRecord[] = res.data || [];
 
   if (!bookings || bookings.length == 0) {
     return null

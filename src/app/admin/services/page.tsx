@@ -16,18 +16,29 @@ import { Tables } from "@/database/database";
 import { BASE_URL, ZAR } from "@/lib/utils";
 import ServiceCard from "../_components/ServiceCard";
 import Link from "next/link";
+import supabase from "@/database/supabase";
+import { NextResponse } from "next/server";
 
 type Props = {};
 
 export const dynamic = 'force-dynamic'
 
 async function page({}: Props) {
-  const categories = await fetch(
-    `${BASE_URL}/api/admin/services/categories`
-  ).then((res) => res.json());
-  const services = await fetch(`${BASE_URL}/api/admin/services`).then(
-    (res) => res.json()
-  );
+  const { data, error } = await supabase
+  .from('categories')
+  .select('*')
+    
+  if(error){
+    return NextResponse.json({"message": error.message})
+  }
+
+  const categories = data;
+
+  const res = await supabase
+  .from('services')
+  .select('*')
+
+  const services = res.data; //services
 
   console.log(categories, services);
 
@@ -112,7 +123,7 @@ async function page({}: Props) {
                   opacity: 1,
                 }}
               >
-                {services
+                {services && services
                   .filter((service: Tables<"services">) => service.category == category.name)
                   .map((service: Tables<"services">) => {
                     return (
