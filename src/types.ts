@@ -1,4 +1,4 @@
-import { Database, Tables } from "./lib/database.types"
+import { Database, Tables } from "./database/database"
 
 export type BookingRecord = {
     id: number,
@@ -10,7 +10,7 @@ export type BookingRecord = {
  }
  
  export type CustomerRecord = {
-     id: number,
+       id: number,
        name: string,
        email: string,
        phone: string,

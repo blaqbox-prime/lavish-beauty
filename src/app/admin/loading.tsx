@@ -9,7 +9,7 @@ function loading({}: Props) {
     <div className='w-full h-screen flex flex-col items-center justify-center gap-4'>
         <Rings
   visible={true}
-  height="150"
+  height={"150"}
   width="150"
   color="#d97706"
   ariaLabel="rings-loading"

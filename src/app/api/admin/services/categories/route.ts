@@ -11,10 +11,9 @@ export async function GET(request: NextRequest){
   
 
   const { data, error } = await supabase
-  .from('bookings')
-  .select('*, customer(*)')
-  .order('booking_date',{ascending:false})
-
+  .from('categories')
+  .select('*')
+    
   if(error){
     return NextResponse.json({"message": error.message})
   }

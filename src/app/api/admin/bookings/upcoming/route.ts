@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import supabase from '@/lib/supabase'
+import supabase from '@/database/supabase'
 
 export const dynamic = 'force-static'
 export const revalidate = 60 * 30 //revalidate every hour

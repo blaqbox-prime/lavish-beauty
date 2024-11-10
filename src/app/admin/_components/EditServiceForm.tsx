@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,13 +18,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import supabase from "@/lib/supabase";
+import supabase from "@/database/supabase";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tables } from "@/database/database";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   service_name: z.string().min(4).max(50),
   price: z.coerce.number().min(10).max(999999),
   duration_in_minutes: z.coerce.number().min(10).max(120),
+  category: z.string().min(4).max(50).nullable(),
+  image: z.string().nullable(),
 });
 
 type ServiceForm = {
@@ -39,14 +50,44 @@ function EditServiceForm({ service }: ServiceForm) {
       service_name: service == null ? "" : service.service_name,
       price: service == null ? 500 : service.price,
       duration_in_minutes: service == null ? 60 : service.duration_in_minutes,
+      category: service == null ? "All Occassions" : service.category,
+      image: service == null ? "" : service.image,
     },
   });
 
   const { toast } = useToast();
+  const router = useRouter();
 
   // states --------------------------------------------------
   const [loading, setLoading] = React.useState(false);
   const [previewImages, setPreviewImages] = useState<any | null>([]);
+  const [categories, setCategories] = useState<any | null>([]);
+
+  // Get categories from supabase ----------------------------
+
+  useEffect(() => {
+    async function getCategories() {
+      const { data, error } = await supabase.from("categories").select("*");
+
+      if (error) {
+        console.log(error);
+      } else {
+        setCategories(data);
+      }
+    }
+
+    getCategories();
+  }, []);
+
+  // Set images if service not null ---------------------------
+
+  useEffect(() => {
+    if (service != null) {
+      setPreviewImages([service.image]);
+    }
+  }, [service]);
+
+  // Event Handlers ------------------------------------------
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -90,17 +131,20 @@ function EditServiceForm({ service }: ServiceForm) {
         } = supabase.storage.from("pictures").getPublicUrl(imagePath);
         //add the public url to the images array
         images.push(publicUrl);
+        values.image = publicUrl;
       }
 
       if (service != null) {
         const { data, error } = await supabase
-        .from("services")
-        .update({
-          service_name: values.service_name,
-          price: values.price,
-          duration_in_minutes: values.duration_in_minutes,
-          image: images[0],
-        }).eq("id", service.id);
+          .from("services")
+          .update({
+            service_name: values.service_name,
+            price: values.price,
+            duration_in_minutes: values.duration_in_minutes,
+            image: values.image,
+            category: values.category,
+          })
+          .eq("id", service.id);
 
         if (error) {
           toast({
@@ -114,15 +158,13 @@ function EditServiceForm({ service }: ServiceForm) {
           title: "Success",
           description: "Service Updated successfully",
         });
-
-    } else {
-        const { data, error } = await supabase
-        .from("services")
-        .insert({
+      } else {
+        const { data, error } = await supabase.from("services").insert({
           service_name: values.service_name,
           price: values.price,
           duration_in_minutes: values.duration_in_minutes,
           image: images[0],
+          category: values.category,
         });
 
         if (error) {
@@ -133,7 +175,7 @@ function EditServiceForm({ service }: ServiceForm) {
           });
         }
 
-        console.log(data)
+        console.log(data);
 
         toast({
           title: "Success",
@@ -142,10 +184,10 @@ function EditServiceForm({ service }: ServiceForm) {
 
         form.reset();
         setPreviewImages([]);
+      }
     }
-  }
     setLoading(false);
-    
+    router.replace("/admin/services");
   }
 
   const handleFileSelect = (event: { target: any }) => {
@@ -215,7 +257,7 @@ function EditServiceForm({ service }: ServiceForm) {
             <FormItem>
               <FormLabel>Price</FormLabel>
               <FormControl>
-                <Input type="number"  {...field} />
+                <Input type="number" {...field} />
               </FormControl>
               <FormDescription>Service price in Rands</FormDescription>
               <FormMessage />
@@ -241,6 +283,41 @@ function EditServiceForm({ service }: ServiceForm) {
                   {...field}
                 />
               </FormControl>
+              <FormDescription>
+                How long does this take? (in increments of 30 mins)
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* category */}
+
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value as string}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {categories?.map((category: Tables<"categories">) => (
+                    <SelectItem key={category.name} value={category.name}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                  {/* <SelectItem value="m@google.com">m@google.com</SelectItem>
+                  <SelectItem value="m@support.com">m@support.com</SelectItem> */}
+                </SelectContent>
+              </Select>
               <FormDescription>
                 How long does this take? (in increments of 30 mins)
               </FormDescription>
@@ -324,8 +401,12 @@ function EditServiceForm({ service }: ServiceForm) {
           >
             Reset
           </Button>
-          <Button type="submit" disabled={loading} className="bg-amber-950 hover:bg-amber-900">
-            Create
+          <Button
+            type="submit"
+            disabled={loading}
+            className="bg-amber-950 hover:bg-amber-900"
+          >
+            {service ? "Update" : "Create"}
           </Button>
         </div>
       </form>
