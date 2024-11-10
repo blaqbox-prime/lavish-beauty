@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import EditServiceForm from "../_components/EditServiceForm";
 import { Tables } from "@/database/database";
-import { ZAR } from "@/lib/utils";
+import { BASE_URL, ZAR } from "@/lib/utils";
 import ServiceCard from "../_components/ServiceCard";
 import Link from "next/link";
 
@@ -21,9 +21,9 @@ type Props = {};
 
 async function page({}: Props) {
   const categories = await fetch(
-    `${process.env.VERCEL_URL}/api/admin/services/categories`
+    `${BASE_URL}/api/admin/services/categories`
   ).then((res) => res.json());
-  const services = await fetch(`${process.env.VERCEL_URL}/api/admin/services`).then(
+  const services = await fetch(`${BASE_URL}/api/admin/services`).then(
     (res) => res.json()
   );
 

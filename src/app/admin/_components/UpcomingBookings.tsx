@@ -11,6 +11,7 @@ import {
 import { format } from "@formkit/tempo";
 import { User } from "lucide-react";
 import StatusBadge from "./StatusBadge";
+import { BASE_URL } from "@/lib/utils";
 
 type TUpcomingBookings = {
   bookings: BookingRecord[];
@@ -18,7 +19,7 @@ type TUpcomingBookings = {
 
 export default async function UpcomingBookings() {
   
-  const res = await fetch(`${process.env.VERCEL_URL}/api/admin/bookings/upcoming`);
+  const res = await fetch(`${BASE_URL}/api/admin/bookings/upcoming`);
   const bookings: BookingRecord[] = await res.json();
 
   if (!bookings || bookings.length == 0) {
