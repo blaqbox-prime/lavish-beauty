@@ -19,6 +19,8 @@ import Link from "next/link";
 
 type Props = {};
 
+export const dynamic = 'force-dynamic'
+
 async function page({}: Props) {
   const categories = await fetch(
     `${BASE_URL}/api/admin/services/categories`

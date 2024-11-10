@@ -1,3 +1,4 @@
+
 import { BookingRecord } from "@/types";
 import React from "react";
 import * as motion from "framer-motion/client";
@@ -5,8 +6,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { format } from "@formkit/tempo";
 import { User } from "lucide-react";
@@ -16,6 +15,7 @@ import { BASE_URL } from "@/lib/utils";
 type TUpcomingBookings = {
   bookings: BookingRecord[];
 };
+
 
 export default async function UpcomingBookings() {
   
