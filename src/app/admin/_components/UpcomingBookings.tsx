@@ -40,9 +40,9 @@ export default async function UpcomingBookings() {
       <Carousel>
         <CarouselContent>
           {bookings &&
-            bookings.map((booking: BookingRecord) => (
+            bookings.map((booking: BookingRecord, idx: number) => (
               <CarouselItem
-                key={booking.id.toString()}
+                key={booking.id.toString() || idx}
                 className="sm:basis-1/2 lg:basis-1/4 cursor-pointer"
               >
                 <article className="p-5 bg-amber-900 rounded-md relative flex h-44 items-start justify-between">
