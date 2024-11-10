@@ -13,3 +13,21 @@ export function filterUpcomingBookings(bookings: BookingRecord[]) : BookingRecor
   return bookings.filter(booking => new Date(booking.booking_date) > new Date(currentDate))
   .sort((a, b) => new Date(a.booking_date).getTime() - new Date(b.booking_date).getTime());
 }
+
+export const ZAR = new Intl.NumberFormat('en-za', {
+  style: 'currency',
+  currency: 'ZAR',
+});
+
+export const greeting = () => {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour < 12) {
+    return "Good Morning,";
+  } else if (hour < 17) {
+    return "Good Afternoon, ";
+  } else {
+    return "Good Evening, ";
+  }
+};

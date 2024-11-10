@@ -6,6 +6,7 @@ import { BookingRecord } from '@/types'
 import React, { useEffect, useState } from 'react'
 import StatusBadge from './StatusBadge'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { format } from '@formkit/tempo'
 
 type TTableOfBookings = {
     bookings: BookingRecord[]
@@ -15,6 +16,8 @@ type TTableOfBookings = {
 
 function TableOfBookings({bookings = []}: TTableOfBookings) {
   
+    console.log(bookings)
+
     const NUM_PAGES = bookings.length/10
     const [page, setPage] = useState(1)
     const [start, setStart] = useState(0)
@@ -29,6 +32,7 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Date Booked</TableHead>
+                <TableHead>Time</TableHead>
                 <TableHead>Status</TableHead>
             </TableRow>
         </TableHeader>
@@ -39,7 +43,8 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
                     <TableCell>{booking?.id}</TableCell>
                     <TableCell>{booking.customer?.name}</TableCell>
                     <TableCell>{booking.customer?.email || 'No email address available'}</TableCell>
-                    <TableCell>{new Date(booking.booking_date).toLocaleString()}</TableCell>
+                    <TableCell>{format(booking.booking_date,"full")}</TableCell>
+                    <TableCell className='font-bold text-amber-950'>{format(booking.booking_date,{time: "short"},'de')}</TableCell>
                     <TableCell>
                         <StatusBadge status={booking.status}/>
                     </TableCell>
@@ -47,7 +52,7 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
             ))}
         </TableBody>
     </Table>
-            <TableCaption className='flex p-2 gap-4 items-center justify-center w-full '>
+            <div className='flex p-2 gap-4 items-center justify-center w-full '>
                 <ArrowLeft className={`cursor-pointer ${page <= 1 && 'cursor-default pointer-events-none opacity-0'}`} 
                 onClick={() => {
                     if(page > 1){
@@ -64,7 +69,7 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
                         }
                     }}
                     />
-            </TableCaption>
+            </div>
     </section>
   )
 }

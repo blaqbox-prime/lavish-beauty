@@ -1,3 +1,5 @@
+import { Database, Tables } from "./database/database"
+
 export type BookingRecord = {
     id: number,
      customer_id: number,
@@ -8,9 +10,13 @@ export type BookingRecord = {
  }
  
  export type CustomerRecord = {
-     id: number,
+       id: number,
        name: string,
        email: string,
        phone: string,
        created_at: Date
+ }
+
+ export interface ServiceRecord extends Tables<'services'> {
+     
  }

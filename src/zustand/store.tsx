@@ -6,11 +6,17 @@ import { create } from "zustand";
 
 export const useBookings = create((set) => ({
   bookings: [],
-  setBookings: (bookings: []) => set({bookings}),
+  loading: false,
+  setLoading: (loading_state: boolean) => set({ loading: loading_state }),
+  setBookings: (bookings: []) => set({ bookings }),
   getBookings: async () => {
+    set({ loading: true });
     fetch("/admin/bookings/api")
       .then((res) => res.json())
-      .then((bookings) => set({ bookings }));
+      .then((bookings) => {
+        set({ bookings });
+        set({ loading: false });
+      });
   },
 
   page: 1,
@@ -19,17 +25,14 @@ export const useBookings = create((set) => ({
   setStart: (newStartPosition: number) => set({ start: newStartPosition }),
 
   // filters
-  startDate: new Date(),
+  startDate: null,
   setStartDate: (startDate: Date) => {
-    if (!startDate) {
-      set({ startDate: new Date() });
-    } else set({ startDate });
+     set({ startDate });
   },
 
-  endDate: addDays(new Date(), 31),
+  endDate: null,
   setEndDate: (newEndDate: Date) => {
-    if (!newEndDate) {
-      set({ endDate: addDays(new Date(), 30) });
-    } else set({ endDate: newEndDate });
+    set({ endDate: newEndDate });
   },
+
 }));

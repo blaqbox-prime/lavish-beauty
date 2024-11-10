@@ -16,11 +16,22 @@ type TUpcomingBookings = {
   bookings: BookingRecord[];
 };
 
-export default function UpcomingBookings({ bookings }: TUpcomingBookings) {
+export default async function UpcomingBookings() {
+  
+  const res = await fetch("http://localhost:3000/api/admin/bookings/upcoming");
+  const bookings: BookingRecord[] = await res.json();
+
+  if (!bookings || bookings.length == 0) {
+    return null
+  }
+
   return (
-    <section className="mb-6">
+    <motion.section className="mb-6"
+    // initial={{ opacity: 0, top: -100}}  
+    // animate={{ opacity: 1, top: 0}}
+    >
       <motion.h1
-        className="font-bold text-2xl mb-4 opacity-0"
+        className="font-bold text-2xl mb-4"
         animate={{ opacity: 1 }}
       >
         Upcoming Bookings
@@ -28,23 +39,38 @@ export default function UpcomingBookings({ bookings }: TUpcomingBookings) {
 
       <Carousel>
         <CarouselContent>
-          {bookings && bookings.map((booking) => (
-            <CarouselItem id={booking.id.toString()} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/5 ">
-                <article className="p-5 bg-amber-900 rounded-md relative flex items-start justify-between">
-                    <div className="left">
-                    <h1 className="font-black text-2xl opacity-30 text-amber-100">{format(booking.booking_date, {time: 'short'})}</h1>
-                    <p className="text-sm -mt-1 text-amber-100">{format(booking.booking_date, 'full')}</p>
-                    <p className="mt-10 flex gap-1 items-center text-amber-50"> <User /> {booking.customer?.name}</p>
-                    <h1 className="font-black text-7xl opacity-5 text-amber-500 absolute -bottom-4 -right-8">{format(booking.booking_date, {time: 'short'})}</h1>
+          {bookings &&
+            bookings.map((booking: BookingRecord) => (
+              <CarouselItem
+                key={booking.id.toString()}
+                className="sm:basis-1/2 lg:basis-1/4 cursor-pointer"
+              >
+                <article className="p-5 bg-amber-900 rounded-md relative flex h-44 items-start justify-between">
+                  <div className="left flex flex-col h-full justify-between">
+                    <div className="flex-1">
+                      <h1 className="font-black text-2xl opacity-30 text-amber-100">
+                        {format(booking.booking_date, { time: "short" })}
+                      </h1>
+                      <p className="text-sm -mt-1 text-amber-100">
+                        {format(booking.booking_date, "full")}
+                      </p>
                     </div>
-                    <div className="right">
-                        <StatusBadge status={booking.status}/>
-                    </div>
+                    <p className="flex gap-1 items-center text-amber-50">
+                      {" "}
+                      <User /> {booking.customer?.name}
+                    </p>
+                    <h1 className="font-black text-7xl opacity-5 text-amber-500 absolute -bottom-4 -right-8">
+                      {format(booking.booking_date, { time: "short" })}
+                    </h1>
+                  </div>
+                  <div className="absolute top-[1rem] right-[1rem]">
+                    <StatusBadge status={booking.status} />
+                  </div>
                 </article>
-            </CarouselItem>
-          ))}
+              </CarouselItem>
+            ))}
         </CarouselContent>
       </Carousel>
-    </section>
+    </motion.section>
   );
 }
