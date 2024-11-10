@@ -21,9 +21,9 @@ type Props = {};
 
 async function page({}: Props) {
   const categories = await fetch(
-    "http://localhost:3000/api/admin/services/categories"
+    `${process.env.VERCEL_URL}/api/admin/services/categories`
   ).then((res) => res.json());
-  const services = await fetch("http://localhost:3000/api/admin/services").then(
+  const services = await fetch(`${process.env.VERCEL_URL}/api/admin/services`).then(
     (res) => res.json()
   );
 

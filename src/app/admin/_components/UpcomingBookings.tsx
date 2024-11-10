@@ -18,7 +18,7 @@ type TUpcomingBookings = {
 
 export default async function UpcomingBookings() {
   
-  const res = await fetch("http://localhost:3000/api/admin/bookings/upcoming");
+  const res = await fetch(`${process.env.VERCEL_URL}/api/admin/bookings/upcoming`);
   const bookings: BookingRecord[] = await res.json();
 
   if (!bookings || bookings.length == 0) {
