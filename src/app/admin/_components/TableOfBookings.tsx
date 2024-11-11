@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react'
 import StatusBadge from './StatusBadge'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { format } from '@formkit/tempo'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 type TTableOfBookings = {
     bookings: BookingRecord[]
@@ -21,7 +23,7 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
     const NUM_PAGES = bookings.length/10
     const [page, setPage] = useState(1)
     const [start, setStart] = useState(0)
-    
+    const router = useRouter()
 
     return (
     <section className='w-full'>
@@ -39,7 +41,10 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
 
         <TableBody>
             {_.slice(bookings,start,page * 10).map((booking: BookingRecord) => (
-                <TableRow key={booking.id}>
+                <TableRow className='cursor-pointer' key={booking.id} onClick={() => {
+                    router.push(`/admin/bookings/${booking.id}`)
+                }}>
+                    
                     <TableCell>{booking?.id}</TableCell>
                     <TableCell>{booking.customer?.name}</TableCell>
                     <TableCell>{booking.customer?.email || 'No email address available'}</TableCell>
