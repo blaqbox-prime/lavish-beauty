@@ -3,17 +3,7 @@ import EditServiceForm from "../../_components/EditServiceForm";
 import supabase from "@/database/supabase";
 import { NextResponse } from "next/server";
 import * as motion from "framer-motion/client";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Trash2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import DeleteServiceButton from "../../_components/DeleteServiceButton";
 
 async function ServicePage({ params }: { params: { id: string } }) {

@@ -21,8 +21,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/dashboard",
       icon: (
         <Home
-          className={`text-slate-400 hover:text-amber-500 transition-all duration-300 ${
-            path.startsWith("/admin/dashboard") && "text-amber-700"
+          className={` hover:text-amber-500 transition-all duration-300 ${
+            path.startsWith("/admin/dashboard") ? "text-amber-700" : "text-slate-400"
           } `}
           size={16}
           // color={`${path.startsWith("/admin/dashboard") && "#b45309"}`}
@@ -35,8 +35,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/bookings",
       icon: (
         <BookOpenText
-          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
-            path.startsWith("/admin/bookings") && "text-amber-700"
+          className={`  hover:text-amber-500 transition-all duration-300 ${
+            path.includes("/admin/bookings") ? "text-amber-700" : "text-slate-400"
           } `}
           size={16}
         />
@@ -48,8 +48,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/services",
       icon: (
         <Palette
-          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
-            path.startsWith("/admin/services") && "text-amber-700"
+          className={`  hover:text-amber-500 transition-all duration-300 ${
+            path.includes("/admin/services") ? "text-amber-700" : "text-slate-400"
           } `}
           size={16}
         />
@@ -61,8 +61,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/clients",
       icon: (
         <User
-          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
-            path.startsWith("/admin/clients") && "text-amber-700"
+          className={`  hover:text-amber-500 transition-all duration-300 ${
+            path.includes("/admin/clients") ? "text-amber-700" : "text-slate-400"
           } `}
           size={16}
         />
@@ -74,8 +74,8 @@ function Sidebar({ className = "" }: ISidebar) {
       link: "/admin/invoices",
       icon: (
         <Table
-          className={`text-slate-400  hover:text-amber-500 transition-all duration-300 ${
-            path.startsWith("/admin/invoices") && activeTab && "text-amber-700"
+          className={` hover:text-amber-500 transition-all duration-300 ${
+            path.includes("/admin/invoices") ? "text-amber-700" : "text-slate-400 "
           } `}
           size={16}
         />
@@ -87,7 +87,7 @@ function Sidebar({ className = "" }: ISidebar) {
     <aside
       className={`${className} flex py-14 flex-col gap-10 min-h-screen border-r border-r-slate-100`}
     >
-      {icons.map((icon, idx) => (
+      {icons.map((icon:any, idx) => (
         <Link
           href={icon.link}
           onClick={() => {
@@ -95,7 +95,7 @@ function Sidebar({ className = "" }: ISidebar) {
           }}
           key={idx}
           className={`cursor-pointer px-5 ${
-            path.startsWith(icon.link) && "text-amber-500 border-r-2 border-amber-500"
+            path.includes(icon.link) && "text-amber-500 border-r-2 border-amber-500"
           } transition-all duration-200`}
         >
           {icon.icon}

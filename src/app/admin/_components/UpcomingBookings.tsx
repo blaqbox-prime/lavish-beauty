@@ -53,7 +53,7 @@ export default async function UpcomingBookings() {
                 key={booking.id.toString() || idx}
                 className="sm:basis-1/2 lg:basis-1/4 cursor-pointer"
               >
-                <article className="p-5 bg-amber-900 rounded-md relative flex h-44 items-start justify-between">
+                <article className="p-5 bg-amber-900 hover:bg-amber-800 rounded-md relative flex h-44 items-start justify-between">
                   <div className="left flex flex-col h-full justify-between">
                     <div className="flex-1">
                       <h1 className="font-black text-2xl opacity-30 text-amber-100">
