@@ -9,44 +9,26 @@ import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
 import TableOfBookings from "./TableOfBookings";
 import CardListOfBookings from "./CardListOfBookings";
-import { useBookings } from "@/zustand/store";
 import Image from "next/image";
 import BookingViewSkeleton from "./BookingViewSkeleton";
 import _ from "lodash";
-import { isAfter, isBefore } from "@formkit/tempo";
+import { useBookingsView } from "@/hooks/useBookings";
 
 type TBookingsView = {
   bookings: BookingRecord[];
 };
 
+
 const BookingsView = ({}: TBookingsView) => {
-  const loading = useBookings((state: any) => state.loading);
-  const fromDate = useBookings((state: any) => state.startDate);
-  const toDate = useBookings((state: any) => state.endDate);
-  const getBookings = useBookings((state: any) => state.getBookings);
-  const bookings = useBookings((state: any) => state.bookings);
-
-  const [searchText, setSearchText] = useState("");
-
-  const filteredBookings =
-    fromDate && toDate
-      ? _.filter(
-          bookings,
-          (booking: BookingRecord) =>
-            isAfter(booking.booking_date, fromDate) &&
-            isBefore(booking.booking_date, toDate)
-        )
-      : bookings;
-
-  useEffect(() => {
-    // Get Bookings
-    getBookings();
-  }, []);
-
-  const handleSearch = (e: any) => {
-    setSearchText(e.target.value);
-    console.log(e.target.value);
-  };
+  const {
+    loading,
+    fromDate,
+    toDate,
+    bookings,
+    searchText,
+    filteredBookings,
+    handleSearch
+  } = useBookingsView();
 
   // Show when no data is available
   if (bookings.length == 0 && loading == false) {

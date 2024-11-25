@@ -8,7 +8,12 @@ export const metadata: Metadata = {
 
 function Dashboard() {
   return (
-    <div>Dashboard Home Page</div>
+    <div>
+      Dashboard
+
+      <h2 role='greeting'>Welcome Back <span>Evelyn</span></h2>
+
+    </div>
   )
 }
 

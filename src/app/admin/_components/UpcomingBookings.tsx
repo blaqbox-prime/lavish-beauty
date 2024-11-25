@@ -13,6 +13,7 @@ import StatusBadge from "./StatusBadge";
 import { BASE_URL } from "@/lib/utils";
 import { NextResponse } from "next/server";
 import supabase from "@/database/supabase";
+import { getUpcomingBookings } from "@/services/BookingsService";
 
 type TUpcomingBookings = {
   bookings: BookingRecord[];
@@ -21,13 +22,8 @@ type TUpcomingBookings = {
 
 export default async function UpcomingBookings() {
   
-  const res = await supabase
-  .from('bookings')
-  .select('*, customer(*)')
-  .gte('booking_date', new Date().toISOString())
-  .order('booking_date',{ascending: true})
-
-  const bookings: BookingRecord[] = res.data || [];
+  
+  const bookings: BookingRecord[] = await getUpcomingBookings()
 
   if (!bookings || bookings.length == 0) {
     return null
@@ -35,8 +31,6 @@ export default async function UpcomingBookings() {
 
   return (
     <motion.section className="mb-6"
-    // initial={{ opacity: 0, top: -100}}  
-    // animate={{ opacity: 1, top: 0}}
     >
       <motion.h1
         className="font-bold text-2xl mb-4"
@@ -53,7 +47,7 @@ export default async function UpcomingBookings() {
                 key={booking.id.toString() || idx}
                 className="sm:basis-1/2 lg:basis-1/4 cursor-pointer"
               >
-                <article className="p-5 bg-amber-900 rounded-md relative flex h-44 items-start justify-between">
+                <article className="p-5 bg-amber-900 hover:bg-amber-800 rounded-md relative flex h-44 items-start justify-between">
                   <div className="left flex flex-col h-full justify-between">
                     <div className="flex-1">
                       <h1 className="font-black text-2xl opacity-30 text-amber-100">
