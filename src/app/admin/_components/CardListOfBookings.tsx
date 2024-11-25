@@ -24,8 +24,8 @@ export default function CardListOfBookings({bookings = []}: TCardListOfBookings)
     return (
     <>
           {_.slice(bookings,start,page * 10).map((booking: BookingRecord) =>(
-          <Link href={`/admin/bookings/${booking.id}`}>
-          <BookingCard booking={booking} key={booking.id.toString()}/>
+          <Link href={`/admin/bookings/${booking.id}`} key={booking.id.toString()}>
+          <BookingCard booking={booking} />
           </Link>
         ))}
         <div className='flex p-2 gap-4 items-center justify-center w-full '>
