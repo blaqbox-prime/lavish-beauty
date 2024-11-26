@@ -3,6 +3,7 @@ import * as motion from "framer-motion/client";
 import { Tables } from '@/database/database';
 import { Clock4 } from 'lucide-react';
 import { ZAR } from '@/lib/utils';
+import Image from 'next/image';
 
 type Props = {
     service: Tables<"services">
@@ -23,7 +24,7 @@ function ServiceCard({service}: Props) {
                           </div>
                         </div>
                         <h2 className="text-4xl lg:text-6xl font-black absolute -bottom-3 -right-3 text-amber-950 opacity-15">{ZAR.format(service.price)}</h2>
-                        <img src={service.image || undefined} alt="" className="w-full h-full object-cover rounded-md absolute top-0 left-0 brightness-50 hover:brightness-90 opacity-80 transition-all " />
+                        <Image src={service.image || ''} alt="" width={200} height={150} className="w-full h-full object-cover rounded-md absolute top-0 left-0 brightness-50 hover:brightness-90 opacity-80 transition-all " />
                         </motion.article>
   )
 }

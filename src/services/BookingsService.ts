@@ -1,5 +1,6 @@
 import supabase from "@/database/supabase"
 import { BookingRecord } from "@/types";
+import { cache } from "react";
 
 export async function getUpcomingBookings(): Promise<BookingRecord[]> {
    const {data, error} = await supabase
@@ -16,7 +17,7 @@ export async function getUpcomingBookings(): Promise<BookingRecord[]> {
 
 }
 
-export async function getBookingDetails(id: string | number){
+export const getBookingDetails = cache( async (id: string | number) => {
     const { data: booking, error } = await supabase
     .from("bookings")
     .select("*, customer(*)")
@@ -37,4 +38,4 @@ export async function getBookingDetails(id: string | number){
 
     return {booking, services};
 
-}
+})
