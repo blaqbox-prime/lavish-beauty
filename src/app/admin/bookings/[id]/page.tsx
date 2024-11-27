@@ -24,6 +24,7 @@ import { Tables } from "@/database/database";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import RescheduleForm from "../../_components/RescheduleForm";
 import { getBookingDetails } from "@/services/BookingsService";
+import BtnCancelBooking from "@/components/BtnCancelBooking";
 
 async function BookingDetails({ params }: { params: { id: string } }) {
 
@@ -60,13 +61,8 @@ async function BookingDetails({ params }: { params: { id: string } }) {
           </p>
           <StatusBadge status={booking.status} />
 
-          <Button
-            variant={"destructive"}
-            className="absolute top-0 right-0 font-semibold"
-          >
-            {" "}
-            <Trash2 /> Cancel Booking
-          </Button>
+          {booking.status != 'cancelled' && <BtnCancelBooking bookingId={booking.id} />}
+          
         </header>
 
         {/* Actions We Can Take */}

@@ -73,21 +73,21 @@ export type Database = {
           created_at: string | null
           customer_id: number
           id: number
-          status: string
+          status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
         }
         Insert: {
           booking_date: string
           created_at?: string | null
           customer_id: number
           id?: never
-          status: string
+          status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
         }
         Update: {
           booking_date?: string
           created_at?: string | null
           customer_id?: number
           id?: never
-          status?: string
+          status?: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
         }
         Relationships: [
           {
