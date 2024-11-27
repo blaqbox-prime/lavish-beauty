@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select";
 import { Tables } from "@/database/database";
 import { useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
 
 const formSchema = z.object({
   service_name: z.string().min(4).max(50),
@@ -406,6 +407,7 @@ function EditServiceForm({ service }: ServiceForm) {
             disabled={loading}
             className="bg-amber-950 hover:bg-amber-900"
           >
+            {loading && <LoaderCircle className='animate-spin'/>}
             {service ? "Update" : "Create"}
           </Button>
         </div>

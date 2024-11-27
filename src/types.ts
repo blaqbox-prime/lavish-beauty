@@ -16,3 +16,7 @@ export interface BookingRecord extends Tables<'bookings'> {
  export interface ServiceRecord extends Tables<'services'> {
      
  }
+
+ export interface ClientRecord extends Tables<'customer'> {
+      
+ }
