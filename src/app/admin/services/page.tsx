@@ -21,7 +21,6 @@ import { NextResponse } from "next/server";
 
 type Props = {};
 
-export const dynamic = 'force-dynamic'
 
 async function page({}: Props) {
   const { data, error } = await supabase

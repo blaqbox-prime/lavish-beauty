@@ -9,6 +9,6 @@ interface ILogo {
 
 export default function Logo({className = '', width, height}: ILogo) {
   return (
-    <Image alt='logo' src='/logo-transparent-2.png' className={`${className}`} width={ width ?? 120} height={height ?? 150}/>
+    <Image alt='logo' src='/logo-transparent-2.png' className={`${className}`} width={ width ?? 120} height={height ?? 35}/>
   )
 }

@@ -6,13 +6,14 @@ import * as motion from "framer-motion/client";
 import DateRangePicker from "./DateRangePicker";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Plus, Search } from "lucide-react";
+import { Plus} from "lucide-react";
 import TableOfBookings from "./TableOfBookings";
 import CardListOfBookings from "./CardListOfBookings";
 import Image from "next/image";
 import BookingViewSkeleton from "./BookingViewSkeleton";
 import _ from "lodash";
 import { useBookingsView } from "@/hooks/useBookings";
+import Search from "./Search";
 
 type TBookingsView = {
   bookings: BookingRecord[];
@@ -83,14 +84,7 @@ const BookingsView = ({}: TBookingsView) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Input
-              type="search"
-              placeholder="Search client name"
-              className="col-span-4 md:flex-1 w-full"
-              onChange={handleSearch}
-              value={searchText}
-              icon={<Search className="text-gray-500" size={16}/>}
-            />
+            <Search onChange={handleSearch} value={searchText}/>
             
           </motion.div>
         </section>
