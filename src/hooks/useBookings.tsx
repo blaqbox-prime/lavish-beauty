@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useBookings } from '@/zustand/store';
 import { BookingRecord } from '@/types';
 import _ from 'lodash';
@@ -30,10 +30,10 @@ export const useBookingsView = () => {
     getBookings();
   }, [getBookings]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
     console.log(e.target.value);
-  };
+  },[])
 
   return {
     loading,

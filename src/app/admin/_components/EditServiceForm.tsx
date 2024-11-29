@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";export const dynamic = 'force-dynamic'
+
 import { ServiceRecord } from "@/types";
 
 import { Button } from "@/components/ui/button";
@@ -51,7 +52,7 @@ function EditServiceForm({ service }: ServiceForm) {
       service_name: service == null ? "" : service.service_name,
       price: service == null ? 500 : service.price,
       duration_in_minutes: service == null ? 60 : service.duration_in_minutes,
-      category: service == null ? "All Occassions" : service.category,
+      category: !service ? "All Occassions" : service.category,
       image: service == null ? "" : service.image,
     },
   });

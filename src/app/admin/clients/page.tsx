@@ -4,10 +4,20 @@ import { UserPlus2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import EditClientForm from '@/components/NewClientForm';
+import { fetchAllClients } from '@/services/ClientsService';
+import ClientsTable from '@/components/ClientsTable';
+import { Input } from '@/components/ui/input';
+import ClientsFilter from '@/components/ClientsFilter';
+import ClientsView from '@/components/ClientsView';
 
 type Props = {}
 
-function Clients({}: Props) {
+async function Clients({}: Props) {
+  
+  const clients = await fetchAllClients();
+
+
+  
   return (
     <motion.main role='page'
     initial={{ opacity: 0, y: 100 }}
@@ -67,7 +77,9 @@ function Clients({}: Props) {
 
         {/* image */}
       </motion.section>
-      
+
+        
+      <ClientsView />
     </motion.main>
   )
 }

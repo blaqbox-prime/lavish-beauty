@@ -1,13 +1,12 @@
 'use client'
 
 import _ from 'lodash'
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { BookingRecord } from '@/types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import StatusBadge from './StatusBadge'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { format } from '@formkit/tempo'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 type TTableOfBookings = {

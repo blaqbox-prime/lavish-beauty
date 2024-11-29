@@ -94,7 +94,7 @@ async function BookingDetails({ params }: { params: { id: string } }) {
               </CarouselItem>
               <CarouselItem
                 className={`sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer ${
-                  !booking.status.includes("Pending") &&
+                  !booking.status.toLocaleLowerCase().includes("pending") &&
                   "cursor-not-allowed hidden"
                 }`}
               >
