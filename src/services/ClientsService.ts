@@ -15,7 +15,7 @@ export const deleteClient = async (id: string | number) => {
     return true
 }
 
-export const fetchAllClients = async () => {
+export const getAllClients = async () => {
     const { data, error } = await supabase.from('customer').select('*')
 
     if(error){
@@ -34,5 +34,15 @@ export const updateClient = async (client: any) => {
     }
     return true
 }
+
+export const getClientById = async (id: string | number) => {
+    const { data, error } = await supabase.from('customer').select('*').eq('id', id).single()
+
+    if(error){
+        console.log(error)
+        return null
+    }
+    return data
+    }
 
 

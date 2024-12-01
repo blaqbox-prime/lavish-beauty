@@ -16,7 +16,7 @@ import { useBookingsView } from "@/hooks/useBookings";
 import Search from "./Search";
 
 type TBookingsView = {
-  bookings: BookingRecord[];
+
 };
 
 

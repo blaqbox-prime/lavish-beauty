@@ -10,11 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { BookingRecord } from "@/types";
 import React, { useState } from "react";
-import StatusBadge from "@/app/admin/_components/StatusBadge";
 import { ArrowLeft, ArrowRight, DeleteIcon, Edit2Icon } from "lucide-react";
-import { format } from "@formkit/tempo";
 import { useRouter } from "next/navigation";
 import { deleteClient } from "@/services/ClientsService";
 import {
@@ -27,7 +24,6 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { toast } from "@/hooks/use-toast";
-import { useClientsView } from "@/hooks/useClients";
 import { useClients } from "@/zustand/store";
 
 type ClientsTable = {
@@ -43,6 +39,7 @@ function ClientsTable({ clientsList = [] }: ClientsTable) {
   const setPage = useClients((state: any) => state.setPage)
   const setStart = useClients((state: any) => state.setStart)
   const router = useRouter();
+  const getClients = useClients((state: any) => state.getClients);
 
   const handleDelete = async (client: ClientRecord) => {
     // Implement your own logic for deleting a client
@@ -50,6 +47,10 @@ function ClientsTable({ clientsList = [] }: ClientsTable) {
     const deleted = await deleteClient(client.id);
 
     if (deleted) {
+
+      'use server'
+      getClients();
+
       // Update the clients list without the deleted client
             toast({
         title: "Client deleted successfully",

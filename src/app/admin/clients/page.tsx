@@ -1,20 +1,17 @@
 import React from 'react'
 import * as motion from "framer-motion/client";
 import { UserPlus2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import EditClientForm from '@/components/NewClientForm';
-import { fetchAllClients } from '@/services/ClientsService';
-import ClientsTable from '@/components/ClientsTable';
-import { Input } from '@/components/ui/input';
-import ClientsFilter from '@/components/ClientsFilter';
+import { getAllClients } from '@/services/ClientsService';
+
 import ClientsView from '@/components/ClientsView';
 
 type Props = {}
 
 async function Clients({}: Props) {
   
-  const clients = await fetchAllClients();
+  const clients = await getAllClients();
 
 
   

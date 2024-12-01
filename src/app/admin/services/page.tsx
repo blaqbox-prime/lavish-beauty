@@ -1,7 +1,6 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 
-import { Clock4, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import * as motion from "framer-motion/client";
 import {
   Dialog,
@@ -11,13 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import EditServiceForm from "../_components/EditServiceForm";
 import { Tables } from "@/database/database";
 import { BASE_URL, ZAR } from "@/lib/utils";
-import ServiceCard from "../_components/ServiceCard";
 import Link from "next/link";
 import supabase from "@/database/supabase";
 import { NextResponse } from "next/server";
+import ServiceCard from "@/components/ServiceCard";
+import EditServiceForm from "@/components/EditServiceForm";
 
 type Props = {};
 

@@ -18,11 +18,11 @@ function Sidebar({ className = "" }: ISidebar) {
   const icons = [
     {
       title: "Home",
-      link: "/admin/dashboard",
+      link: "/admin",
       icon: (
         <Home
           className={` hover:text-amber-500 transition-all duration-300 ${
-            path.startsWith("/admin/dashboard") ? "text-amber-700" : "text-slate-400"
+            path == ("/admin") ? "text-amber-700" : "text-slate-400"
           } `}
           size={16}
           // color={`${path.startsWith("/admin/dashboard") && "#b45309"}`}
@@ -94,8 +94,8 @@ function Sidebar({ className = "" }: ISidebar) {
             setActiveTab(idx);
           }}
           key={idx}
-          className={`cursor-pointer px-5 ${
-            path.includes(icon.link) && "text-amber-500 border-r-2 border-amber-500"
+          className={`cursor-pointer px-5 hover:text-amber-500 ${
+            path == (icon.link) && "text-amber-500 border-r-2 border-amber-500"
           } transition-all duration-200`}
         >
           {icon.icon}
