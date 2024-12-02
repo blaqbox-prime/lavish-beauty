@@ -8,7 +8,7 @@ import { ClientRecord } from '@/types'
 import { Trash2Icon } from 'lucide-react'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import LoadingAnimation from '@/app/admin/_components/LoadingAnimation'
+import LoadingAnimation from '@/components/LoadingAnimation'
 import { div } from 'framer-motion/client'
 
 function DeleteClientButton({client, className = ''}: {client: ClientRecord, className?: string}) {
