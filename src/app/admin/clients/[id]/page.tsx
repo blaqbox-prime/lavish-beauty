@@ -1,17 +1,15 @@
-import { fetchClientById as getClientById } from "@/services/ClientsService";
+import { getClientById } from "@/services/ClientsService";
 import React from "react";
 import * as motion from "framer-motion/client";
-import { NextResponse } from "next/server";
-import { redirect, useRouter } from "next/navigation";
-import { NextURL } from "next/dist/server/web/next-url";
-import { toast } from "@/hooks/use-toast";
+import { redirect} from "next/navigation";
+
 import { getBookingsByClientID } from "@/services/BookingsService";
-import TableOfBookings from "../../_components/TableOfBookings";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ActionCard from "@/components/ActionCard";
-import { AlarmClock, CalendarDays, HandCoins, Palette, User2 } from "lucide-react";
+import {  CalendarDays, User2 } from "lucide-react";
 import DeleteClientButton from "@/components/DeleteClientButton";
+import TableOfBookings from "@/components/TableOfBookings";
 
 
 

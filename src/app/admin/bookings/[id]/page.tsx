@@ -3,7 +3,6 @@ import Error from "next/error";
 import React from "react";
 import * as motion from "framer-motion/client";
 import { format } from "@formkit/tempo";
-import StatusBadge from "../../_components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import {
   AlarmClock,
@@ -18,12 +17,13 @@ import {
 } from "@/components/ui/carousel";
 import ActionCard from "@/components/ActionCard";
 import Link from "next/link";
-import ServiceCard from "../../_components/ServiceCard";
 import { Tables } from "@/database/database";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import RescheduleForm from "../../_components/RescheduleForm";
 import { getBookingDetails } from "@/services/BookingsService";
 import BtnCancelBooking from "@/components/BtnCancelBooking";
+import StatusBadge from "@/components/StatusBadge";
+import RescheduleForm from "@/components/RescheduleForm";
+import ServiceCard from "@/components/ServiceCard";
 
 async function BookingDetails({ params }: { params: { id: string } }) {
 
