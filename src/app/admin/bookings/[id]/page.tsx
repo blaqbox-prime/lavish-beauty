@@ -10,7 +10,6 @@ import {
   CalendarDays,
   HandCoins,
   Palette,
-  Trash2,
 } from "lucide-react";
 import {
   Carousel,

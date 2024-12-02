@@ -66,3 +66,15 @@ export const updateBookingStatus = async (id: string | number, status: 'confirme
 
   return error? false : true;
 }
+
+export const getBookingsByClientID = async (clientID: string): Promise<BookingRecord[] | null> => {
+  const { data, error } = await supabase
+   .from("bookings")
+   .select("*, customer(name, email)")
+   .eq("customer_id", clientID)
+   .order("booking_date", { ascending: false });
+
+  if (error) { console.log(error); return null }
+
+  return data;
+}
