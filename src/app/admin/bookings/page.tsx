@@ -2,11 +2,9 @@ import { Button } from "@/components/ui/button";
 
 import { Plus } from "lucide-react";
 import * as motion from "framer-motion/client";
+import UpcomingBookings from "@/components/UpcomingBookings";
+import BookingsView from "@/components/BookingsView";
 
-import UpcomingBookings from "../_components/UpcomingBookings";
-import BookingsView from "../_components/BookingsView";
-
-export const dynamic = 'force-dynamic'
 
 function Bookings() {
   return (
@@ -55,7 +53,7 @@ function Bookings() {
       {/* Upcoming Bookings ========================================================= */}
       <UpcomingBookings />
 
-      <BookingsView bookings={[]} />
+      <BookingsView />
     </motion.main>
   );
 }

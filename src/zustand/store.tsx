@@ -1,5 +1,5 @@
 import page from "@/app/admin/services/page";
-import { fetchAllClients } from "@/services/ClientsService";
+import { getAllClients } from "@/services/ClientsService";
 import { BookingRecord } from "@/types";
 import { addDays } from "date-fns";
 import { Function } from "lodash";

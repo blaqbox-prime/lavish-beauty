@@ -1,6 +1,5 @@
 "use client";
 
-import BookingViewSkeleton from "@/app/admin/_components/BookingViewSkeleton";
 import { useClientsView } from "@/hooks/useClients";
 import Image from "next/image";
 import React from "react";
@@ -8,13 +7,14 @@ import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import ClientsFilter from "./ClientsFilter";
 import ClientsTable from "./ClientsTable";
-import CardListOfClients from "@/app/admin/_components/CardListOfClients";
+import BookingViewSkeleton from "./BookingViewSkeleton";
+import CardListOfClients from "./CardListOfClients";
 
 type Props = {};
 
 function ClientsView({}: Props) {
   // Use the useClientsView hook to get the filtered clientsb
-  const { filteredClients, clients, loading, handleSearch, searchText } = useClientsView();
+  const { filteredClients, clients, loading, handleSearch, searchText, } = useClientsView();
   console.log(filteredClients);
 
   if (clients.length == 0 && loading == false) {
@@ -45,7 +45,7 @@ function ClientsView({}: Props) {
     return (
       <section>
         <ClientsFilter handleSearch={handleSearch} searchText={searchText} />
-        <ClientsTable clientsList={filteredClients} />
+        <ClientsTable clientsList={filteredClients}/>
         <CardListOfClients clients={filteredClients}/>
       </section>
     );

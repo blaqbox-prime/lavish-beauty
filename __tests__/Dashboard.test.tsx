@@ -1,4 +1,4 @@
-import Dashboard from '@/app/admin/dashboard/page';
+import Dashboard from '@/app/admin/page';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 // Testing the dashboard page

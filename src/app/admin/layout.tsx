@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import Sidebar from '@/app/admin/_components/Sidebar'
-import MobileNav from "./_components/MobileNav";
-import { usePathname } from "next/navigation";
+import MobileNav from "@/components/MobileNav";
+import Sidebar from "@/components/Sidebar";
 
 function layout({
   children,

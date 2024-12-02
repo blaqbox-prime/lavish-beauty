@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import * as motion from "framer-motion/client";
-import Search from '@/app/admin/_components/Search';
+import Search from './Search';
 
 type Props = {
   handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void,

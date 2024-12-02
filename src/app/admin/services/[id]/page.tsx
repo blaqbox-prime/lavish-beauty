@@ -1,23 +1,19 @@
 import React from "react";
-import EditServiceForm from "../../_components/EditServiceForm";
 import supabase from "@/database/supabase";
 import { NextResponse } from "next/server";
 import * as motion from "framer-motion/client";
+import DeleteServiceButton from "@/components/DeleteServiceButton";
+import EditServiceForm from "@/components/EditServiceForm";
+import Error from 'next/error'
+import { getServiceById } from "@/services/ServicesService";
 
-import DeleteServiceButton from "../../_components/DeleteServiceButton";
 
 async function ServicePage({ params }: { params: { id: string } }) {
-  const { data, error } = await supabase
-    .from("services")
-    .select("*")
-    .eq("id", params.id);
+ 
+  const service = await getServiceById(params.id)
 
-  if (error) {
-    return NextResponse.json({ message: error.message });
-  }
-
-  if (data.length == 0) {
-    return NextResponse.json({ message: "Service not found" });
+  if (!service) {
+    return <Error statusCode={404} />
   }
 
   return (
@@ -39,12 +35,12 @@ async function ServicePage({ params }: { params: { id: string } }) {
           }}
         >
           Edit Service:{" "}
-          <span className="text-amber-900">{data[0].service_name}</span>
+          <span className="text-amber-900">{service.service_name}</span>
         </motion.h1>
 
-        <DeleteServiceButton service={data[0]} />
+        <DeleteServiceButton service={service} />
       </div>
-      <EditServiceForm service={data[0]} />
+      <EditServiceForm service={service} />
     </motion.main>
   );
 }
