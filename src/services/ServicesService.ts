@@ -41,6 +41,24 @@ export const getServiceById : (id: string) => Promise<ServiceRecord | null> = as
     return data;
 }
 
+export const getServicesByBookingId : (id: string) => any = async (id: string) => {
+    const { data, error } = await supabase
+    .from('booked_service')
+    .select(`*, services(
+        service_name,
+        category,
+        price,
+        duration)`)
+    .eq('booking_id', id)
+
+    if(error){
+        console.log(error)
+        return null
+    }
+
+    return data
+}
+
 export const createService : (service: TablesInsert<'services'>) => Promise<ServiceRecord | null> = async (service: TablesInsert<'services'>) => {
     const { data, error } = await supabase
     .from('services')

@@ -20,7 +20,7 @@ export const getAllClients = async () => {
 
     if(error){
         console.log(error)
-        return []
+        return null
     }
     return data
 }

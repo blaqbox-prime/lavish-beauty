@@ -1,24 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import supabase from '@/database/supabase'
+import _ from "lodash";
 
 export const dynamic = 'force-static'
 export const revalidate = 60 * 60 //revalidate every hour
 
 export async function GET(request: NextRequest){
-
-  // const page = Number(request.nextUrl.searchParams.get('page')) || 1;
-  // const limit = Number(request.nextUrl.searchParams.get('limit')) || 10;
   
 
   const { data, error } = await supabase
   .from('bookings')
-  .select('*, customer(*)')
-  .order('booking_date',{ascending:false})
+  .select(`*, customer(*) , services:booked_service(services(*))`)
+  .order('booking_date',{ascending: false})
+
 
   if(error){
     return NextResponse.json({"message": error.message})
   }
 
-  return NextResponse.json(data)
+  const formatted = data.map((item: any) => ({
+    ...item,
+    services: _.map(item.services,(bookedService: any) => bookedService.services),
+  }));
+
+  console.log(data)
+  return NextResponse.json(formatted)
 
 }
