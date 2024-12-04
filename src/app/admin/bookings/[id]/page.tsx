@@ -1,13 +1,11 @@
-import supabase from "@/database/supabase";
-import Error from "next/error";
 import React from "react";
 import * as motion from "framer-motion/client";
 import { format } from "@formkit/tempo";
-import { Button } from "@/components/ui/button";
 import {
   AlarmClock,
   CalendarDays,
   HandCoins,
+  MapPinHouse,
   Palette,
 } from "lucide-react";
 import {
@@ -16,19 +14,18 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import ActionCard from "@/components/ActionCard";
-import Link from "next/link";
-import { Tables } from "@/database/database";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { getBookingDetails } from "@/services/BookingsService";
 import BtnCancelBooking from "@/components/BtnCancelBooking";
 import StatusBadge from "@/components/StatusBadge";
 import RescheduleForm from "@/components/RescheduleForm";
 import ServiceCard from "@/components/ServiceCard";
+import UpdateBookedServicesForm from "@/components/UpdateBookedServicesForm";
 
 async function BookingDetails({ params }: { params: { id: string } }) {
 
   const {booking, services} = await getBookingDetails(params.id)
-  // console.log(services);
+  console.log('Services for id',booking.id,services); 
 
   return (
     booking && (
@@ -58,15 +55,19 @@ async function BookingDetails({ params }: { params: { id: string } }) {
           <p className="text-2xl font-bold text-amber-900">
             {format(booking.booking_date, { time: "short" })}
           </p>
-          <StatusBadge status={booking.status} />
+          <div className="flex gap-2 text-2xl font-bold">
+          <MapPinHouse />
+          {booking.location}
+          </div>
+          <StatusBadge status={booking.status} /> 
 
           {booking.status != 'cancelled' && <BtnCancelBooking bookingId={booking.id} />}
-          
+
         </header>
 
         {/* Actions We Can Take */}
 
-        <section title="actions" className="my-8">
+        <section className="my-8">
           <Carousel>
             <CarouselContent>
               <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer">
@@ -83,7 +84,15 @@ async function BookingDetails({ params }: { params: { id: string } }) {
                 </Dialog>
               </CarouselItem>
               <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer">
+              <Dialog>
+              <DialogTrigger asChild>
+
                 <ActionCard title="Update Booked Services" icon={<Palette />} />
+                </DialogTrigger>
+                  <DialogContent>
+                    <UpdateBookedServicesForm booked_services={services}  booking_id={booking.id}/>
+                  </DialogContent>
+                </Dialog>
               </CarouselItem>
               <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer">
                 <ActionCard
@@ -118,16 +127,12 @@ async function BookingDetails({ params }: { params: { id: string } }) {
           >
             {/* {services && services */}
             {services &&
-              services.map(({ services }) => {
-                if (!services) return null;
+              services.map(({ service }) => {
+                if (!service) return null;
                 return (
-                  <Link
-                    href={"/admin/services/" + services.id}
-                    key={services.id}
-                    className={""}
-                  >
-                    <ServiceCard service={services} key={services.id} />
-                  </Link>
+                 
+                    <ServiceCard service={service} key={service.id} />
+            
                 );
               })}
           </motion.section>

@@ -30,7 +30,7 @@ export const getBookingDetails = cache( async (id: string | number) => {
 
   const { data: services, error: servicesError } = await supabase
     .from("booked_service")
-    .select("*, services(*)")
+    .select("*, service:services(*)")
     .eq("booking_id", Number(id));
 
 
@@ -76,5 +76,27 @@ export const getBookingsByClientID = async (clientID: string): Promise<BookingRe
 
   if (error) { console.log(error); return null }
 
+  return data;
+}
+
+export const addServiceToBooking = async (booking_id: number,service_id: number) => {
+  const { data, error } = await supabase
+   .from("booked_service")
+   .insert({ booking_id, service_id })
+   .select()
+
+  if (error) { console.log(error); return null}
+  return data;
+}
+
+export const removeServiceFromBooking = async (booking_id: number, service_id: number) => {
+  const { data, error } = await supabase
+   .from("booked_service")
+   .delete()
+   .eq("booking_id", booking_id)
+   .eq("service_id", service_id)
+   .select()
+
+  if (error) { console.log(error); return null}
   return data;
 }

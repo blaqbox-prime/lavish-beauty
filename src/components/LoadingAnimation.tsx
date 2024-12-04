@@ -1,9 +1,10 @@
 import React from 'react'
 import { Rings } from 'react-loader-spinner'
 
-function LoadingAnimation({size}: {size: number | string}) {
+function LoadingAnimation({size = 48, className = ''}: {size: number | string, className:string}) {
   return (
-    <Rings
+    <div className={`${className}`}>
+      <Rings
   visible={true}
   height={size}
   width={size}
@@ -12,6 +13,7 @@ function LoadingAnimation({size}: {size: number | string}) {
   wrapperStyle={{}}
   wrapperClass=""
   />
+    </div>
   )
 }
 

@@ -73,6 +73,7 @@ export type Database = {
           created_at: string | null
           customer_id: number
           id: number
+          location: Database["public"]["Enums"]["Location"]
           status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
         }
         Insert: {
@@ -80,6 +81,7 @@ export type Database = {
           created_at?: string | null
           customer_id: number
           id?: never
+          location?: Database["public"]["Enums"]["Location"]
           status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
         }
         Update: {
@@ -87,6 +89,7 @@ export type Database = {
           created_at?: string | null
           customer_id?: number
           id?: never
+          location?: Database["public"]["Enums"]["Location"]
           status?: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
         }
         Relationships: [
@@ -240,7 +243,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      "Booking Status":
+        | "pending"
+        | "confirmed"
+        | "completed"
+        | "cancelled"
+        | "missed"
+      Location: "Nylstroom" | "Lephalale" | "House Call" | "Other"
     }
     CompositeTypes: {
       [_ in never]: never

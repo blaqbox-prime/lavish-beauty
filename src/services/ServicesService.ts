@@ -2,7 +2,7 @@ import { TablesInsert, TablesUpdate } from "@/database/database"
 import supabase from "@/database/supabase"
 import { ServiceRecord } from "@/types"
 
-export const getServices : () => Promise<ServiceRecord[] | null> = async () => {
+export const getAllServices : () => Promise<ServiceRecord[] | null> = async () => {
     const { data, error } = await supabase.from('services').select('*')
 
     if(error){
