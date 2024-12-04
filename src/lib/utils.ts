@@ -33,3 +33,5 @@ export const greeting = () => {
     return "Good Evening, ";
   }
 };
+
+export const  BOOKING_STATUSES = ["pending", "confirmed", "cancelled", "completed", "missed"]

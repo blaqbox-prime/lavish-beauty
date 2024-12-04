@@ -2,7 +2,7 @@ import { TablesInsert, TablesUpdate } from "@/database/database"
 import supabase from "@/database/supabase"
 import { ServiceRecord } from "@/types"
 
-export const getServices : () => Promise<ServiceRecord[] | null> = async () => {
+export const getAllServices : () => Promise<ServiceRecord[] | null> = async () => {
     const { data, error } = await supabase.from('services').select('*')
 
     if(error){
@@ -39,6 +39,24 @@ export const getServiceById : (id: string) => Promise<ServiceRecord | null> = as
     }
 
     return data;
+}
+
+export const getServicesByBookingId : (id: string) => any = async (id: string) => {
+    const { data, error } = await supabase
+    .from('booked_service')
+    .select(`*, services(
+        service_name,
+        category,
+        price,
+        duration)`)
+    .eq('booking_id', id)
+
+    if(error){
+        console.log(error)
+        return null
+    }
+
+    return data
 }
 
 export const createService : (service: TablesInsert<'services'>) => Promise<ServiceRecord | null> = async (service: TablesInsert<'services'>) => {
