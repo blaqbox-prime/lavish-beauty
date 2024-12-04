@@ -7,13 +7,14 @@ import Image from 'next/image';
 
 type Props = {
     service: Tables<"services">
+    className?: string
 }
 
-function ServiceCard({service}: Props) {
+function ServiceCard({service, className = ''}: Props) {
   return (
     <motion.article
                         key={service.id}
-                        className="p-5 h-44 overflow-hidden flex items-start justify-between bg-amber-50 rounded-md relative opacity-0 cursor-pointer transition-all hover:shadow-lg hover:shadow-amber-100"
+                        className={`p-5 h-44 overflow-hidden flex items-start justify-between bg-amber-50 rounded-md relative opacity-0 cursor-pointer transition-all hover:shadow-lg hover:shadow-amber-100 ${className}`}
                         animate={{ opacity: 1 }}
                       >
                         <div className="left h-full flex flex-col justify-between z-10 pointer-events-none">

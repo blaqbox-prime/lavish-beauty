@@ -2,7 +2,6 @@ import { Database, Tables } from "./database/database"
 
 export interface BookingRecord extends Tables<'bookings'> {
   customer?: any;
-  
  }
  
  export interface CustomerRecord extends Tables<'customer'> {

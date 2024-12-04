@@ -6,7 +6,7 @@ import { BanIcon, Loader, Trash2Icon } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { deleteBooking, updateBookingStatus } from '@/services/BookingsService'
-import LoadingAnimation from '@/app/admin/_components/LoadingAnimation'
+import LoadingAnimation from '@/components/LoadingAnimation'
 
 type Props = {
     bookingId: string | number
