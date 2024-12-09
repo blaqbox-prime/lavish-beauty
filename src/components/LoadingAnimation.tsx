@@ -1,7 +1,7 @@
 import React from 'react'
 import { Rings } from 'react-loader-spinner'
 
-function LoadingAnimation({size = 48, className = ''}: {size: number | string, className:string}) {
+function LoadingAnimation({size = 48, className = ''}: {size: number | string, className?:string}) {
   return (
     <div className={`${className}`}>
       <Rings

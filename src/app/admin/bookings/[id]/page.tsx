@@ -57,7 +57,7 @@ async function BookingDetails({ params }: { params: { id: string } }) {
           </p>
           <div className="flex gap-2 text-2xl font-bold">
           <MapPinHouse />
-          {booking.location}
+          <p>{booking.location as string}</p>
           </div>
           <StatusBadge status={booking.status} />   
 
