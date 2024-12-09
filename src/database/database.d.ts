@@ -249,7 +249,7 @@ export type Database = {
         | "completed"
         | "cancelled"
         | "missed"
-      Location: "Nylstroom" | "Lephalale" | "House Call" | "Other"
+      Location: string | Location
     }
     CompositeTypes: {
       [_ in never]: never

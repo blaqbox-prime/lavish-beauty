@@ -56,7 +56,7 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
             ))}
         </TableBody>
     </Table>
-            <div className='flex p-2 gap-4 items-center justify-center w-full '>
+            <div className='flex mt-4 p-2 gap-4 items-center justify-center w-full '>
                 <ArrowLeft className={`cursor-pointer ${page <= 1 && 'cursor-default pointer-events-none opacity-0'}`} 
                 onClick={() => {
                     if(page > 1){

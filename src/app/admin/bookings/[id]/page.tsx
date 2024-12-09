@@ -59,7 +59,7 @@ async function BookingDetails({ params }: { params: { id: string } }) {
           <MapPinHouse />
           {booking.location}
           </div>
-          <StatusBadge status={booking.status} /> 
+          <StatusBadge status={booking.status} />   
 
           {booking.status != 'cancelled' && <BtnCancelBooking bookingId={booking.id} />}
 
