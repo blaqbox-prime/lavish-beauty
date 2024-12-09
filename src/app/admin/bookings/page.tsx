@@ -4,6 +4,8 @@ import { Plus } from "lucide-react";
 import * as motion from "framer-motion/client";
 import UpcomingBookings from "@/components/UpcomingBookings";
 import BookingsView from "@/components/BookingsView";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import BookingForm from "@/components/BookingForm";
 
 
 function Bookings() {
@@ -43,10 +45,15 @@ function Bookings() {
         </h2>
         <p className="text-xs mb-4">Book a new session for a client</p>
         {/* Button */}
-        <Button className="bg-amber-950 hover:bg-amber-900">
+        <Dialog>
+        <DialogTrigger className=" flex gap-2 p-2 text-white rounded-md bg-amber-950 hover:bg-amber-900">
           {" "}
           <Plus className="text-amber-100" /> New Booking
-        </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <BookingForm />
+        </DialogContent>
+        </Dialog>
         {/* image */}
       </motion.section>
 

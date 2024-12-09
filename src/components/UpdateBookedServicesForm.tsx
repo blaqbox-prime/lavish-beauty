@@ -94,7 +94,7 @@ function UpdateBookedServicesForm({ booked_services, booking_id}: Props) {
             <section title="options" className="grid grid-cols-2 gap-6">
                 { 
                 services.map((service: ServiceRecord) => {
-                    if(selectedServices.includes(service.id)) return <article className="group relative" onClick={() => {handleRemoveServiceFromBooking(service.id)}}>
+                    if(selectedServices.includes(service.id)) return <article key={service.id} className="group relative" onClick={() => {handleRemoveServiceFromBooking(service.id)}}>
                       <Trash2Icon className={`"absolute top-1/2 left-1/2 z-40 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-white transition-all opacity-0 group-hover:opacity-100" ${loading && 'hidden'}`} />
                       <LoadingAnimation size={48} className={`"absolute top-1/2 left-1/2 z-40 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-white transition-all opacity-0 group-hover:opacity-100" hidden ${loading && 'block'}`} />
                       <ServiceCard service={service} key={service.id} className="hover:bg-red-900 transition-colors cursor-not-allowed"/></article>
@@ -108,7 +108,7 @@ function UpdateBookedServicesForm({ booked_services, booking_id}: Props) {
             <section title="options" className="grid grid-cols-2 gap-6">
                 { 
                 services.map((service: ServiceRecord) => {
-                    if(!selectedServices.includes(service.id)) return <span onClick={() => {handleAddServiceToBooking(service.id)}} aria-disabled={loading}><ServiceCard service={service} key={service.id} className={`${loading ? 'cursor-not-allowed pointer-events-none filter grayscale transition-all' : ''}`}/></span>
+                    if(!selectedServices.includes(service.id)) return <span key={service.id} onClick={() => {handleAddServiceToBooking(service.id)}} aria-disabled={loading}><ServiceCard service={service} key={service.id} className={`${loading ? 'cursor-not-allowed pointer-events-none filter grayscale transition-all' : ''}`}/></span>
                 })}
             </section>
         </section>

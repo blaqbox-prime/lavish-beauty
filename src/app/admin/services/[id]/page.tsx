@@ -1,11 +1,10 @@
 import React from "react";
-import supabase from "@/database/supabase";
-import { NextResponse } from "next/server";
+
 import * as motion from "framer-motion/client";
 import DeleteServiceButton from "@/components/DeleteServiceButton";
 import EditServiceForm from "@/components/EditServiceForm";
-import Error from 'next/error'
 import { getServiceById } from "@/services/ServicesService";
+import { redirect } from 'next/navigation'
 
 
 async function ServicePage({ params }: { params: { id: string } }) {
@@ -13,7 +12,7 @@ async function ServicePage({ params }: { params: { id: string } }) {
   const service = await getServiceById(params.id)
 
   if (!service) {
-    return <Error statusCode={404} />
+    return redirect('/admin/services')
   }
 
   return (

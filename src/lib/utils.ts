@@ -1,4 +1,4 @@
-import { BookingRecord } from "@/types"
+import { BookingRecord, TimeSlot } from "@/types"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -35,3 +35,11 @@ export const greeting = () => {
 };
 
 export const  BOOKING_STATUSES = ["pending", "confirmed", "cancelled", "completed", "missed"]
+
+export const isAllowedTime = (time: TimeSlot, min: TimeSlot = "09:00", max: TimeSlot = "19:00") => {
+  const minHour = Number(min.split(":")[0])
+  const maxHour = Number(max.split(":")[0])
+  const givenHour = Number(time.split(":")[0])
+
+  return givenHour >= minHour && givenHour <= maxHour
+}

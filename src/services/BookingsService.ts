@@ -1,3 +1,4 @@
+import { Tables, TablesInsert } from "@/database/database";
 import supabase from "@/database/supabase"
 import { BookingRecord } from "@/types";
 import { cache } from "react";
@@ -99,4 +100,14 @@ export const removeServiceFromBooking = async (booking_id: number, service_id: n
 
   if (error) { console.log(error); return null}
   return data;
+}
+
+export const createBooking = async (booking: TablesInsert<'bookings'>) : Promise<BookingRecord | null> => {
+  const { data, error } = await supabase
+   .from("bookings")
+   .insert(booking)
+   .select()
+
+  if (error) { console.log(error); return null}
+  return data[0];
 }

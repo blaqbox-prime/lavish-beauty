@@ -31,6 +31,7 @@ import {
 import { Tables } from "@/database/database";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
+import Image from "next/image";
 
 const formSchema = z.object({
   service_name: z.string().min(4).max(50),
@@ -377,8 +378,10 @@ function EditServiceForm({ service }: ServiceForm) {
                   index: React.Key | null | undefined
                 ) => (
                   <li key={index}>
-                    <img
-                      src={previewImage}
+                    <Image
+                      width={192}
+                      height={192}
+                      src={previewImage || ''}
                       alt={`Uploaded image ${index}`}
                       className={`object-cover object-center rounded-md shadow-sm h-48 w-full shadow-slate-400 animate-in fade-in-25 ease-in-out`}
                     />
