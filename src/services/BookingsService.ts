@@ -106,8 +106,21 @@ export const createBooking = async (booking: TablesInsert<'bookings'>) : Promise
   const { data, error } = await supabase
    .from("bookings")
    .insert(booking)
-   .select()
+   .select('*, customer(*)')
 
   if (error) { console.log(error); return null}
   return data[0];
+}
+
+export const getBookingByID = async (id: string | number): Promise<BookingRecord | null>  => {
+  const { data: booking, error } = await supabase
+    .from("bookings")
+    .select("*, customer(*)")
+    .eq("id", id)
+    .single();
+  
+    if (error) { console.log(error); return null }
+
+  return booking;
+
 }
