@@ -61,6 +61,7 @@ async function ClientDetailsPage({ params }: { params: { id: string } }) {
                 <Dialog>
                   <DialogTrigger asChild>
                     <ActionCard
+                    
                       title="Schedule Appointment"
                       icon={<CalendarDays />}
                     />

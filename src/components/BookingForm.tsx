@@ -43,6 +43,7 @@ import LoadingAnimation from "./LoadingAnimation";
 import { Tables, TablesInsert } from "@/database/database";
 import { forEach } from "lodash";
 import { createBooking } from "@/services/BookingsService";
+import { sendNotification } from "@/services/MailServices";
 
 const formSchema = z.object({
   customer: z.number().min(1),
@@ -147,7 +148,7 @@ function BookingForm({ booking }: BookingForm) {
       })
 
       setLoading(false)
-
+      sendNotification(booking)
       toast({
         title: "Booking created successfully",
         description: `Booking with ID: ${booking?.id} has been created`,

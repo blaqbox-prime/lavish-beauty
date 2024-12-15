@@ -21,12 +21,16 @@ import StatusBadge from "@/components/StatusBadge";
 import RescheduleForm from "@/components/RescheduleForm";
 import ServiceCard from "@/components/ServiceCard";
 import UpdateBookedServicesForm from "@/components/UpdateBookedServicesForm";
+import { sendBookingReminder } from "@/services/MailServices";
+import { toast } from "@/hooks/use-toast";
+import BookingActions from "@/components/BookingActions";
 
 async function BookingDetails({ params }: { params: { id: string } }) {
 
   const {booking, services} = await getBookingDetails(params.id)
   console.log('Services for id',booking.id,services); 
 
+  
   return (
     booking && (
       <motion.main
@@ -67,53 +71,7 @@ async function BookingDetails({ params }: { params: { id: string } }) {
 
         {/* Actions We Can Take */}
 
-        <section className="my-8">
-          <Carousel>
-            <CarouselContent>
-              <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <ActionCard
-                      title="Reschedule Appointment"
-                      icon={<CalendarDays />}
-                    />
-                  </DialogTrigger>
-                  <DialogContent>
-                    <RescheduleForm />
-                  </DialogContent>
-                </Dialog>
-              </CarouselItem>
-              <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer">
-              <Dialog>
-              <DialogTrigger asChild>
-
-                <ActionCard title="Update Booked Services" icon={<Palette />} />
-                </DialogTrigger>
-                  <DialogContent>
-                    <UpdateBookedServicesForm booked_services={services}  booking_id={booking.id}/>
-                  </DialogContent>
-                </Dialog>
-              </CarouselItem>
-              <CarouselItem className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer">
-                <ActionCard
-                  title="Send Booking Reminder"
-                  icon={<AlarmClock />}
-                />
-              </CarouselItem>
-              <CarouselItem
-                className={`sm:basis-1/2 md:basis-1/3 lg:basis-1/4 cursor-pointer ${
-                  !booking.status.toLocaleLowerCase().includes("pending") &&
-                  "cursor-not-allowed hidden"
-                }`}
-              >
-                <ActionCard
-                  title="Send Payment Reminder"
-                  icon={<HandCoins />}
-                />
-              </CarouselItem>
-            </CarouselContent>
-          </Carousel>
-        </section>
+        <BookingActions booking={booking} services={services}/>
 
         <section title="Booked Services">
           <h2 className="text-2xl font-bold mb-2">Booked Services</h2>
