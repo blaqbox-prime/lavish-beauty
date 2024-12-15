@@ -10,7 +10,7 @@ function ActionCard({
   title?: string;
   icon?: React.JSX.Element;
   onClick?: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }) {
   return (
     <div aria-disabled={disabled}

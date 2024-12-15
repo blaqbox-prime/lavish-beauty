@@ -1,13 +1,12 @@
 'use client'
 import { toast } from '@/hooks/use-toast';
 import { sendBookingReminder, sendDepositReminder } from '@/services/MailServices';
-import { BookingRecord, ServiceRecord } from '@/types';
+import { BookingRecord } from '@/types';
 import React, { useState } from 'react'
 import {
     AlarmClock,
     CalendarDays,
     HandCoins,
-    MapPinHouse,
     Palette,
   } from "lucide-react";
   import {
