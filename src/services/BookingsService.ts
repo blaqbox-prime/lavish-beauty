@@ -1,6 +1,7 @@
 import { Tables, TablesInsert } from "@/database/database";
 import supabase from "@/database/supabase"
 import { BookingRecord } from "@/types";
+import _ from "lodash";
 import { cache } from "react";
 
 
@@ -123,4 +124,51 @@ export const getBookingByID = async (id: string | number): Promise<BookingRecord
 
   return booking;
 
+}
+
+export const getBookingsCount = async (): Promise<number> => {
+  const { data, error } = await supabase
+   .from("bookings")
+   .select('*')
+
+  return data?.length || 0;
+}
+
+export const getCompletedBookingsCount = async (): Promise<number> => {
+  const { data, error } = await supabase
+   .from("bookings")
+   .select('*')
+   .eq('status', 'completed')
+
+  return data?.length || 0;
+}
+
+export const getConfirmedBookingsCount = async (): Promise<number> => {
+  const { data, error } = await supabase
+   .from("bookings")
+   .select('*')
+   .eq('status', 'completed')
+
+  return data?.length || 0;
+}
+
+export const getAllBookings = async (limit?: number) : Promise<any[]> => {
+  const { data, error } = await supabase
+  .from('bookings')
+  .select(`*, customer(*) , services:booked_service(services(*))`)
+  .limit(limit || 50)
+  .order('booking_date',{ascending: false})
+
+
+  if(error){
+    console.error("error")
+    return []
+  }
+
+  const formatted = data.map((item: any) => ({
+    ...item,
+    services: _.map(item.services,(bookedService: any) => bookedService.services),
+  }));
+
+  return formatted;
 }

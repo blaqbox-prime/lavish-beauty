@@ -74,7 +74,7 @@ export type Database = {
           customer_id: number
           id: number
           location: Database["public"]["Enums"]["Location"]
-          status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
+          status: string
         }
         Insert: {
           booking_date: string
@@ -82,7 +82,7 @@ export type Database = {
           customer_id: number
           id?: never
           location?: Database["public"]["Enums"]["Location"]
-          status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
+          status: string
         }
         Update: {
           booking_date?: string
@@ -90,7 +90,7 @@ export type Database = {
           customer_id?: number
           id?: never
           location?: Database["public"]["Enums"]["Location"]
-          status?: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
+          status?: string
         }
         Relationships: [
           {
@@ -240,7 +240,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_most_booked_service: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          service_id: number
+          service_name: string
+          booking_count: number
+        }[]
+      }
+      get_top_5_requested_services: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          service_id: number
+          service_name: string
+          price: number
+          duration_in_minutes: number
+          created_at: string
+          image: string
+          category: string
+          booking_count: number
+        }[]
+      }
+      get_total_invoice_amount: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
     }
     Enums: {
       "Booking Status":
@@ -249,7 +273,7 @@ export type Database = {
         | "completed"
         | "cancelled"
         | "missed"
-      Location: string | Location
+      Location: "Nylstroom" | "Lephalale" | "House Call" | "Other"
     }
     CompositeTypes: {
       [_ in never]: never
