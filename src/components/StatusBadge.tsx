@@ -1,9 +1,10 @@
 import { Badge } from '@/components/ui/badge'
+import { Status } from '@/types'
 import _ from 'lodash'
 import React from 'react'
 
 type TStatusBadge = {
-    status: 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
+    status: Status
 }
 
 export default function StatusBadge({status}: TStatusBadge) {

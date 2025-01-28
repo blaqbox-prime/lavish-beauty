@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 export const dynamic = "force-dynamic";
 
-import { BookingRecord, ServiceRecord } from "@/types";
+import { BookingRecord, ServiceRecord, Status } from "@/types";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -40,7 +40,7 @@ import { ZAR } from "@/lib/utils";
 import LocationPicker, { AVAILABLE_LOCATIONS } from "./LocationPicker";
 import ServicesPicker from "./ServicesPicker";
 import LoadingAnimation from "./LoadingAnimation";
-import { Tables, TablesInsert } from "@/database/database";
+import { Enums, Tables, TablesInsert } from "@/database/database";
 import { forEach } from "lodash";
 import { createBooking } from "@/services/BookingsService";
 import { sendNotification } from "@/services/MailServices";
@@ -72,7 +72,7 @@ function BookingForm({ booking }: BookingForm) {
           ? format(addDays(new Date(), 1), { time: "short" })
           : format(new Date(booking.booking_date), { time: "short" }),
       services: booking == null ? [] : [],
-      status: booking == null ? "pending" : booking.status,
+      status: booking == null ? "pending" : booking.status as Status,
     },
   });
 
@@ -125,7 +125,7 @@ function BookingForm({ booking }: BookingForm) {
       customer_id: values.customer,
       booking_date: bookingDate.toISOString(),
       status: values.status,
-      location: values.location,
+      location: values.location as Enums<'Location'>,
     }
 
     const booking: BookingRecord | null = await createBooking(bookingInfo);

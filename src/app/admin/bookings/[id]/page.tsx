@@ -24,6 +24,7 @@ import UpdateBookedServicesForm from "@/components/UpdateBookedServicesForm";
 import { sendBookingReminder } from "@/services/MailServices";
 import { toast } from "@/hooks/use-toast";
 import BookingActions from "@/components/BookingActions";
+import { Status } from "@/types";
 
 async function BookingDetails({ params }: { params: { id: string } }) {
 
@@ -63,7 +64,7 @@ async function BookingDetails({ params }: { params: { id: string } }) {
           <MapPinHouse />
           <p>{booking.location as string}</p>
           </div>
-          <StatusBadge status={booking.status} />   
+          <StatusBadge status={booking.status as Status} />   
 
           {booking.status != 'cancelled' && <BtnCancelBooking bookingId={booking.id} />}
 

@@ -2,7 +2,7 @@
 
 import _ from 'lodash'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { BookingRecord } from '@/types'
+import { BookingRecord, Status } from '@/types'
 import React, { useState } from 'react'
 import StatusBadge from './StatusBadge'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -50,7 +50,7 @@ function TableOfBookings({bookings = []}: TTableOfBookings) {
                     <TableCell>{format(booking.booking_date,"full")}</TableCell>
                     <TableCell className='font-bold text-amber-950'>{format(booking.booking_date,{time: "short"},'de')}</TableCell>
                     <TableCell>
-                        <StatusBadge status={booking.status}/>
+                        <StatusBadge status={booking.status as Status}/>
                     </TableCell>
                 </TableRow>
             ))}

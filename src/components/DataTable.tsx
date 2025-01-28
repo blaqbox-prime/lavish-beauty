@@ -157,8 +157,7 @@ function DataTable({data}: Props) {
           <Input
             placeholder="Filter clients..."
             value={(table.getColumn("customer")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("customer")?.setFilterValue(event.target.value)
+      onChange={(event) => {}
             }
             className="max-w-sm"
           />

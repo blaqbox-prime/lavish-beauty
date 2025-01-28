@@ -1,5 +1,5 @@
 
-import { BookingRecord } from "@/types";
+import { BookingRecord, Status } from "@/types";
 import React from "react";
 import * as motion from "framer-motion/client";
 import {
@@ -67,7 +67,7 @@ export default async function UpcomingBookings() {
                     </h1>
                   </div>
                   <div className="absolute top-[1rem] right-[1rem]">
-                    <StatusBadge status={booking.status} />
+                    <StatusBadge status={booking.status as Status} />
                   </div>
                 </Link>
               </CarouselItem>
