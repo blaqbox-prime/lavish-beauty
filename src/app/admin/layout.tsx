@@ -16,7 +16,7 @@ function layout({
       <MobileNav className="md:hidden flex" />
 
       {/* page content */}
-      <main className="flex-1 md:p-14 p-8 overflow-hidden">
+      <main className="flex-1 md:p-14 p-4 overflow-hidden">
             {children}
       </main>
     </div>

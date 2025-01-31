@@ -85,3 +85,27 @@ export const updateService : (service: TablesUpdate<'services'>) => Promise<Serv
 
     return data 
 }
+
+export const getMostBookedService = async () => {
+    const { data, error } = await supabase.rpc('get_most_booked_service');
+
+if (error) {
+  console.error('Error fetching most booked service:', error);
+  return null;
+} else {
+  console.log('Most Booked Service:', data);
+  return data;
+}
+}
+
+export const getTop5Services = async () => {
+    const { data, error } = await supabase.rpc('get_top_5_requested_services');
+
+if (error) {
+  console.error('Error fetching top 5 requested services:', error);
+  return null;
+} else {
+    console.log('Top 5 Requested Services:', data);
+    return data;
+}
+}

@@ -1,5 +1,5 @@
 
-import { BookingRecord } from "@/types";
+import { BookingRecord, Status } from "@/types";
 import React from "react";
 import * as motion from "framer-motion/client";
 import {
@@ -14,6 +14,7 @@ import { BASE_URL } from "@/lib/utils";
 import { NextResponse } from "next/server";
 import supabase from "@/database/supabase";
 import { getUpcomingBookings } from "@/services/BookingsService";
+import Link from "next/link";
 
 type TUpcomingBookings = {
   bookings: BookingRecord[];
@@ -47,7 +48,7 @@ export default async function UpcomingBookings() {
                 key={booking.id.toString() || idx}
                 className="sm:basis-1/2 lg:basis-1/4 cursor-pointer"
               >
-                <article className="p-5 bg-amber-900 hover:bg-amber-800 rounded-md relative flex h-44 items-start justify-between">
+                <Link href={`/admin/bookings/${booking.id}`} className="p-5 cursor-pointer bg-amber-900 hover:bg-amber-800 rounded-md relative flex h-44 items-start justify-between">
                   <div className="left flex flex-col h-full justify-between">
                     <div className="flex-1">
                       <h1 className="font-black text-2xl opacity-30 text-amber-100">
@@ -66,9 +67,9 @@ export default async function UpcomingBookings() {
                     </h1>
                   </div>
                   <div className="absolute top-[1rem] right-[1rem]">
-                    <StatusBadge status={booking.status} />
+                    <StatusBadge status={booking.status as Status} />
                   </div>
-                </article>
+                </Link>
               </CarouselItem>
             ))}
         </CarouselContent>

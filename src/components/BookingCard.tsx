@@ -1,4 +1,4 @@
-import { BookingRecord } from '@/types'
+import { BookingRecord, Status } from '@/types'
 import React from 'react'
 import * as motion from "framer-motion/client";
 import { format } from "@formkit/tempo"
@@ -22,7 +22,7 @@ export default function BookingCard({booking}: TBookingCard) {
 
       <div className="right space-y-4">
         <p className='font-extrabold text-amber-950' >{format(booking.booking_date, { time: "short" })}</p>
-        <StatusBadge status={booking.status}/>
+        <StatusBadge status={booking.status as Status}/>
       </div>
     </motion.article>
   )
