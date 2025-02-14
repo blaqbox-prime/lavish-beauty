@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Imperial_Script, } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
+const playfair_Display = Imperial_Script({
+  weight: "400",
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair-display',
+})
 
 export const metadata: Metadata = {
   title: "Lavish Beauty",
@@ -21,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`font-serif ${playfair_Display.variable}`}>
         {children}
         
       <Toaster />
