@@ -1,35 +1,38 @@
-import React from 'react'
+import React from "react";
+import {LongServiceCard} from "@/components/LongServiceCard";
+import {images} from "@/constants";
 
-type Props = {}
+type Props = {};
 
 function Services({}: Props) {
   return (
-    <section className='my-6 p-4 max-w-5xl flex flex-col gap-6 items-center justify-center mx-auto'>
-        <div className="grid grid-cols-3 gap-8">
-            <img src="https://unsplash.com/photos/ajDUxve6clA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8c29mdCUyMGdsYW18ZW58MHx8fHwxNzM4ODUwODczfDA&force=true&w=640" alt="" className="col-span-1 aspect-square w-full object-cover" />
-            <div className="col-span-2">
-                <h2 className="text-7xl mb-2 font-playfair">For Every Occasion</h2>
-                <p className="text-lg w-[400px]">From soft glam to full-on diva vibes, we create customized looks for photoshoots, parties, dates, or just because! Step into your moment with confidence and flawless beauty.</p>
-            </div>
-        </div>
+    <section className="my-6 flex flex-col gap-6 items-center ">
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-12 h-[600px] max-w-screen-lg mx-auto">
+
+        <LongServiceCard image={images.everyOccation} title={"For Every Occasion"}
+        description={"From soft glam to full-on diva vibes, we create customized looks\n" +
+            "                    for photoshoots, parties, dates, or just because! Step into your\n" +
+            "                    moment with confidence and flawless beauty."}
+        />
         {/* ---------------------------- */}
-        <div className="grid grid-cols-3 gap-4">
-            <img src="https://images.pexels.com/photos/2062542/pexels-photo-2062542.jpeg?cs=srgb&dl=pexels-bestbe-models-975242-2062542.jpg&fm=jpg&w=640&h=427" alt="" className="col-span-1 aspect-square w-full object-cover" />
-            <div className="col-span-2">
-                <h2 className="text-7xl mb-2 font-playfair">Bride's Special Day</h2>
-                <p className="text-lg w-[400px] ">Your wedding day is all about magic—and we’ll make sure you glow in every memory. Our expert bridal makeup service is designed to complement your unique features and style, making you the center of attention, as you should be.</p>
-            </div>
-        </div>
+       <LongServiceCard image={images.bridal} title={"Bride's Special Day"}
+                        description={
+                        " Your wedding day is all about magic—and we’ll make sure you glow\n" +
+                            "              in every memory. Our expert bridal makeup service is designed to\n" +
+                            "              complement your unique features and style, making you the center\n" +
+                            "              of attention, as you should be."
+                        }
+                        />
         {/* ---------------------------- */}
-        <div className="grid grid-cols-3 gap-4">
-            <img src="https://images.pexels.com/photos/3065450/pexels-photo-3065450.jpeg" alt="" className="col-span-1 aspect-square w-full object-cover" />
-            <div className="col-span-2">
-                <h2 className="text-7xl mb-2 font-playfair">Complements</h2>
-                <p className="text-lg w-[400px]">Want luscious locks or dreamy lashes? We’ve got just the right touch! Whether it’s sleek styling, elegant updos, or fluttery lash installs, we’ll make sure your look stays on point.</p>
-            </div>
-        </div>
+        <LongServiceCard image={images.complements} title={"Complements"} description={
+            "         Want luscious locks or dreamy lashes? We’ve got just the right\n" +
+            "              touch! Whether it’s sleek styling, elegant updos, or fluttery lash\n" +
+            "              installs, we’ll make sure your look stays on point."
+        }
+                         />
+      </div>
     </section>
-  )
+  );
 }
 
-export default Services
+export default Services;

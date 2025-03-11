@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Imperial_Script, } from "next/font/google";
+import { Inter, Playfair_Display, } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
-const playfair_Display = Imperial_Script({
+const playfair_Display = Playfair_Display({
   weight: "400",
   subsets: ['latin'],
   display: 'swap',
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-serif ${playfair_Display.variable}`}>
+      <body className={`${playfair_Display.variable} max-w-screen-xl`}>
         {children}
         
       <Toaster />

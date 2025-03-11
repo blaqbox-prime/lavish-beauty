@@ -18,9 +18,11 @@ export default function Home() {
   //  Footer Section */}
 
       <Navbar />
-      <Hero />
-      <About/>
-      <Services />
+      <div className="flex flex-col gap-10">
+          <Hero />
+          <About/>
+          <Services />
+      </div>
 
     </main>
   );
