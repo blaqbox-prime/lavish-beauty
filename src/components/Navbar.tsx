@@ -4,9 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Logo from "@/components/Logo";
-import {AlignRight, Menu} from "lucide-react";
-import {Drawer, DrawerContent, DrawerTrigger} from "@/components/ui/drawer";
+import {AlignRight} from "lucide-react";
 import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
+import {useMediaQuery} from "usehooks-ts";
 
 type Props = {
     activeTab: number,
@@ -22,7 +22,7 @@ const navItems = ["Home", "Services", "Gallery" ,"About Us", "Contact"]
 function Navbar({}: NavContainerProps) {
 
     const [activeTab, setActiveTab] = React.useState(0)
-    const isMobile = window.innerWidth < BREAKPOINT
+    const isMobile = useMediaQuery(`(max-width: ${BREAKPOINT}px)`)
 
     const handleClick = (index: number) => {
         setActiveTab(index)
