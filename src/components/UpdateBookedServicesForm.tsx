@@ -1,8 +1,8 @@
 "use client";
 
-import { getAllServices } from "@/services/ServicesService";
+import ServicesService from "@/services/ServicesService";
 import { ServiceRecord } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Separator } from "./ui/separator";
 import _ from "lodash";
@@ -10,7 +10,7 @@ import ServiceCard from "./ServiceCard";
 import { ScrollArea } from "./ui/scroll-area";
 import { ZAR } from "@/lib/utils";
 import { Trash2Icon} from "lucide-react";
-import { addServiceToBooking, removeServiceFromBooking } from "@/services/BookingsService";
+import BookingService from "@/services/BookingsService";
 import { toast } from "@/hooks/use-toast";
 import LoadingAnimation from "./LoadingAnimation";
 
@@ -26,12 +26,14 @@ function UpdateBookedServicesForm({ booked_services, booking_id}: Props) {
   const [selectedServices, setselectedServices] = useState(booked_ids);
   const [services, setServices] = useState<ServiceRecord[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const servicesService = useMemo(() => new ServicesService(), []);
+  const bookingService = useMemo(() => new BookingService(), []);
+  
   useEffect(() => {
     // get services
     const fetchServices = async () => {
       setLoading(true);
-      const data = await getAllServices();
+      const data = await servicesService.getAllServices();
       if (data) {
         console.log(data)
         setServices(data);
@@ -42,12 +44,14 @@ function UpdateBookedServicesForm({ booked_services, booking_id}: Props) {
     };
 
     fetchServices()
-  }, []);
+  }, [servicesService]);
+
+
 
   const handleAddServiceToBooking = async (service_id: number) => {
     setLoading(true)
 
-    const booked_service = await addServiceToBooking(booking_id as number, service_id)
+    const booked_service = await bookingService.addServiceToBooking(booking_id as number, service_id)
     
     if (booked_service){
       setselectedServices([...selectedServices, service_id])
@@ -66,7 +70,7 @@ function UpdateBookedServicesForm({ booked_services, booking_id}: Props) {
 
     setLoading(true)
 
-    const removed_service = await removeServiceFromBooking(booking_id as number, service_id)
+    const removed_service = await bookingService.removeServiceFromBooking(booking_id as number, service_id)
     
     if (removed_service){
       setselectedServices(_.filter(selectedServices, (id) => id != service_id))

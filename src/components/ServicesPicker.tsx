@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select'
 import { FormControl } from './ui/form'
-import { getAllServices } from '@/services/ServicesService'
+import ServicesService from '@/services/ServicesService'
 import { ServiceRecord } from '@/types'
 import supabase from '@/database/supabase'
 
@@ -21,13 +21,14 @@ function ServicesPicker({onChange, field}: Props) {
     let selectedCount = useMemo(() => selected.reduce(
         (total: number) =>
           total + 1,
-        0
       ), [selected])
 
+    const servicesService = useMemo(() => new ServicesService(), [])
+    
     useEffect(() => {
       // fetch services
     const fetchServicesOptions = async () => {
-        const services = await getAllServices();
+        const services = await servicesService.getAllServices();
         if (services != null) {
           setServices(services);
         }
@@ -45,7 +46,7 @@ function ServicesPicker({onChange, field}: Props) {
       fetchServicesOptions()
       fetchCategoriesOptions();
       setLoading(false)
-    }, [])
+    }, [servicesService])
     
 
   return (

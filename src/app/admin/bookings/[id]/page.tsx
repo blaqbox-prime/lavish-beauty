@@ -2,33 +2,20 @@ import React from "react";
 import * as motion from "framer-motion/client";
 import { format } from "@formkit/tempo";
 import {
-  AlarmClock,
-  CalendarDays,
-  HandCoins,
   MapPinHouse,
-  Palette,
 } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import ActionCard from "@/components/ActionCard";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { getBookingDetails } from "@/services/BookingsService";
+import BookingService from "@/services/BookingsService";
 import BtnCancelBooking from "@/components/BtnCancelBooking";
 import StatusBadge from "@/components/StatusBadge";
-import RescheduleForm from "@/components/RescheduleForm";
+
 import ServiceCard from "@/components/ServiceCard";
-import UpdateBookedServicesForm from "@/components/UpdateBookedServicesForm";
-import { sendBookingReminder } from "@/services/MailServices";
-import { toast } from "@/hooks/use-toast";
 import BookingActions from "@/components/BookingActions";
 import { Status } from "@/types";
 
 async function BookingDetails({ params }: { params: { id: string } }) {
+  const bookingService = new BookingService();
 
-  const {booking, services} = await getBookingDetails(params.id)
+  const {booking, services} = await bookingService.getBookingDetails(params.id)
   console.log('Services for id',booking.id,services); 
 
   

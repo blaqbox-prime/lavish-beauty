@@ -1,9 +1,9 @@
-import { getClientById } from "@/services/ClientsService";
+import ClientService from "@/services/ClientsService";
 import React from "react";
 import * as motion from "framer-motion/client";
 import { redirect} from "next/navigation";
 
-import { getBookingsByClientID } from "@/services/BookingsService";
+import BookingService from "@/services/BookingsService";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ActionCard from "@/components/ActionCard";
@@ -14,15 +14,17 @@ import TableOfBookings from "@/components/TableOfBookings";
 
 
 async function ClientDetailsPage({ params }: { params: { id: string } }) {
-  
-  const client = await getClientById(params.id);
+  const clientService = new ClientService();
+  const bookingService = new BookingService();
+
+  const client = await clientService.getClientById(params.id);
   console.info(client);
 
   if (!client) {
     return redirect('/admin/clients')
   }
 
-  const bookings = await getBookingsByClientID(params.id);
+  const bookings = await  bookingService.getBookingsByClientID(params.id);
 
   return (
     <motion.main
@@ -49,7 +51,7 @@ async function ClientDetailsPage({ params }: { params: { id: string } }) {
       >
         <h1>{client?.name.split(' ')[0]} <span className="text-amber-800">{client?.name.split(' ')[1]}</span></h1>
         <a href={`mailto:${client?.email}`} className="block text-slate-800 hover:text-amber-800">{client?.email}</a>
-        <a href={`tel:${client?.phone}`}className="block text-slate-800 hover:text-amber-800">{client?.phone}</a>
+        <a href={`tel:${client?.phone}`} className="block text-slate-800 hover:text-amber-800">{client?.phone}</a>
       </motion.div>
 
       {/* Actions */}

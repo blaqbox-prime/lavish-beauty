@@ -3,15 +3,15 @@ import * as motion from "framer-motion/client";
 import { UserPlus2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import EditClientForm from '@/components/NewClientForm';
-import { getAllClients } from '@/services/ClientsService';
+import ClientService from '@/services/ClientsService';
 
 import ClientsView from '@/components/ClientsView';
 
 type Props = {}
 
 async function Clients({}: Props) {
-  
-  const clients = await getAllClients();
+  const clientService = new ClientService();
+  const clients = await clientService.getAllClients();
 
 
   

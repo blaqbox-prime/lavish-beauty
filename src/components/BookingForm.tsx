@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,7 +19,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import supabase from "@/database/supabase";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -32,8 +31,8 @@ import {
 import { useRouter } from "next/navigation";
 import { addDays } from "date-fns";
 import { format } from "@formkit/tempo";
-import { getAllServices } from "@/services/ServicesService";
-import { getAllClients } from "@/services/ClientsService";
+import ServicesService from "@/services/ServicesService";
+import ClientService from "@/services/ClientsService";
 import { DatePickerWithPresets } from "./DatePickerWithPresets";
 import TimePicker from "./TimePicker";
 import { ZAR } from "@/lib/utils";
@@ -42,7 +41,7 @@ import ServicesPicker from "./ServicesPicker";
 import LoadingAnimation from "./LoadingAnimation";
 import { Enums, Tables, TablesInsert } from "@/database/database";
 import { forEach } from "lodash";
-import { createBooking } from "@/services/BookingsService";
+import BookingService from "@/services/BookingsService";
 import { sendNotification } from "@/services/MailServices";
 
 const formSchema = z.object({
@@ -75,7 +74,6 @@ function BookingForm({ booking }: BookingForm) {
       status: booking == null ? "pending" : booking.status as Status,
     },
   });
-
   const { toast } = useToast();
   const router = useRouter();
 
@@ -83,19 +81,22 @@ function BookingForm({ booking }: BookingForm) {
   const [loading, setLoading] = React.useState(false);
   const [clients, setclients] = useState<any | null>([]);
   const [services, setServices] = useState<ServiceRecord[] | null>([]);
+  const clientService = useMemo(() => new ClientService(), []);
+  const servicesService = useMemo(() => new ServicesService(), []);
+  const bookingService = new BookingService();
+  
   // Get Form's Drop down menu options ----------------------------
-
   useEffect(() => {
     // fetch services
     const fetchServicesOptions = async () => {
-      const services = await getAllServices();
+      const services = await servicesService.getAllServices();
       if (services != null) {
         setServices(services);
       }
     };
     // fetch users
     const fetchUsersOptions = async () => {
-      const clients = await getAllClients();
+      const clients = await clientService.getAllClients();
       if (clients != null) {
         setclients(clients);
       }
@@ -105,7 +106,7 @@ function BookingForm({ booking }: BookingForm) {
 
     fetchServicesOptions();
     fetchUsersOptions();
-  }, []);
+  }, [clientService, servicesService]);
 
   // Set Services Default ---------------------------
 
@@ -128,7 +129,7 @@ function BookingForm({ booking }: BookingForm) {
       location: values.location as Enums<'Location'>,
     }
 
-    const booking: BookingRecord | null = await createBooking(bookingInfo);
+    const booking: BookingRecord | null = await bookingService.createBooking(bookingInfo);
 
     const bookedServicesInfo: any[] = []
     
@@ -140,15 +141,13 @@ function BookingForm({ booking }: BookingForm) {
         })
       })
 
-      // Record servics
+      // Record services
       forEach(bookedServicesInfo, async (bookedService) => {
-        await supabase
-         .from("booked_service")
-         .insert(bookedService);
+        await bookingService.createBookedService(bookedService)
       })
 
       setLoading(false)
-      sendNotification(booking)
+      await sendNotification(booking)
       toast({
         title: "Booking created successfully",
         description: `Booking with ID: ${booking?.id} has been created`,

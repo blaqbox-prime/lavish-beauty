@@ -1,8 +1,6 @@
 'use client'
 import React from 'react'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { getAllBookings } from '@/services/BookingsService'
 import { BookingRecord, CustomerRecord } from '@/types'
 
 import {
@@ -22,7 +20,6 @@ import { Button } from './ui/button'
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react'
 import { format } from '@formkit/tempo'
 import StatusBadge from './StatusBadge'
-import { Checkbox } from './ui/checkbox'
 import { Input } from './ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table'
 import Link from 'next/link'

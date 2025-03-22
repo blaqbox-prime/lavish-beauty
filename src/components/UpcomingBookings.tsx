@@ -10,10 +10,7 @@ import {
 import { format } from "@formkit/tempo";
 import { User } from "lucide-react";
 import StatusBadge from "./StatusBadge";
-import { BASE_URL } from "@/lib/utils";
-import { NextResponse } from "next/server";
-import supabase from "@/database/supabase";
-import { getUpcomingBookings } from "@/services/BookingsService";
+import BookingService from "@/services/BookingsService";
 import Link from "next/link";
 
 type TUpcomingBookings = {
@@ -24,7 +21,8 @@ type TUpcomingBookings = {
 export default async function UpcomingBookings() {
   
   
-  const bookings: BookingRecord[] = await getUpcomingBookings()
+  const bookingService = new BookingService();
+  const bookings: BookingRecord[] = await bookingService.getUpcomingBookings();
 
   if (!bookings || bookings.length == 0) {
     return null

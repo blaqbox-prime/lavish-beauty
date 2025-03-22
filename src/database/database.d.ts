@@ -1,3 +1,5 @@
+import {StaticImport} from "next/dist/shared/lib/get-img-props";
+
 export type Json =
   | string
   | number
@@ -203,7 +205,7 @@ export type Database = {
           created_at: string | null
           duration_in_minutes: number
           id: number
-          image: string | null
+          image: string | StaticImport | null
           price: number
           service_name: string
         }
