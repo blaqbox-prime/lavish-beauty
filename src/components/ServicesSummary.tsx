@@ -1,32 +1,31 @@
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import supabase from '@/database/supabase';
-import { NextResponse } from 'next/server';
 import * as motion from "framer-motion/client";
 import { Tables } from '@/database/database';
 import Link from 'next/link';
 import ServiceCard from './ServiceCard';
-import { getTop5Services } from '@/services/ServicesService';
-import { ServiceRecord } from '@/types';
+import ServicesService from '@/services/ServicesService';
 import { Plus } from 'lucide-react';
 
 type Props = {}
 
 async function ServicesSummary({}: Props) {
-  
+
+    // TODO: add getAllCategories to ServicesService
     const { data, error } = await supabase
-  .from('categories')
-  .select('*')
+        .from('categories')
+        .select('*')
     
-  if(error){
-    return null;
-  }
+    if(error){
+        return null;
+    }
 
-  const categories = data;
+    const categories = data;
 
-  // await getTop5Services() 
-
-  const services: any[] | null = await getTop5Services(); //services
+  // await getTop5Services()
+    const servicesService = new ServicesService()
+    const services: any[] | null = await servicesService.getTop5Services(); //services
   
     return (
     <Card className="overflow-y-auto">

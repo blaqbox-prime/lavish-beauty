@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, {useMemo, useState} from 'react'
 import { Button } from './ui/button'
-import { BanIcon, Loader, Trash2Icon } from 'lucide-react'
+import { BanIcon } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
-import { deleteBooking, updateBookingStatus } from '@/services/BookingsService'
+import BookingService from '@/services/BookingsService'
 import LoadingAnimation from '@/components/LoadingAnimation'
 
 type Props = {
@@ -16,12 +16,13 @@ function BtnCancelBooking({bookingId}: Props) {
 
     const [loading, setLoading] = useState<boolean>(false)
     const router = useRouter()
+    const bookingService = useMemo(() => new BookingService(), [])
 
     const handleClick = async () => {
         // Call the API to cancel the booking
         setLoading(true);
         // Simulate a delay for loading animation
-        const cancelled = await updateBookingStatus(bookingId, 'cancelled')
+        const cancelled = await bookingService.updateBookingStatus(bookingId, 'cancelled')
         setLoading(false);
         // Redirect to the bookings page
         

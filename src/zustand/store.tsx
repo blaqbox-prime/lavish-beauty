@@ -1,8 +1,4 @@
-import page from "@/app/admin/services/page";
-import { getAllClients } from "@/services/ClientsService";
-import { BookingRecord } from "@/types";
-import { addDays } from "date-fns";
-import { Function } from "lodash";
+
 import { create } from "zustand";
 
 export const useBookings = create((set) => ({

@@ -1,6 +1,5 @@
 import GreetingTitle from '@/components/GreetingTitle';
 import * as motion from "framer-motion/client";
-import UpcomingBookings from '@/components/UpcomingBookings';
 import { Metadata } from 'next';
 import React from 'react'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';

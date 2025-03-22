@@ -13,7 +13,7 @@ import CardListOfClients from "./CardListOfClients";
 type Props = {};
 
 function ClientsView({}: Props) {
-  // Use the useClientsView hook to get the filtered clientsb
+  // Use the useClientsView hook to get the filtered clients
   const { filteredClients, clients, loading, handleSearch, searchText, } = useClientsView();
   console.log(filteredClients);
 

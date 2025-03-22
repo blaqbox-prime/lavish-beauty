@@ -21,6 +21,15 @@ import EditServiceForm from "@/components/EditServiceForm";
 type Props = {};
 
 
+async function getAllServices() {
+  const res = await supabase
+      .from('services')
+      .select('*')
+
+  const services = res.data;
+  return services;
+}
+
 async function page({}: Props) {
   const { data, error } = await supabase
   .from('categories')
@@ -32,11 +41,7 @@ async function page({}: Props) {
 
   const categories = data;
 
-  const res = await supabase
-  .from('services')
-  .select('*')
-
-  const services = res.data; //services
+  const services = await getAllServices(); //services
 
   console.log(categories, services);
 

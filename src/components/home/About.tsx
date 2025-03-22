@@ -2,6 +2,7 @@ import React from "react";
 import * as motion from "framer-motion/client";
 import { Brush, WandSparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {};
 
@@ -17,7 +18,7 @@ function About({}: Props) {
           <p className="text-lg max-w-lg">
             With a passion for artistry and a knack for enhancing natural
             beauty, Evelyn has spent 3 years transforming faces and boosting
-            confidence. Whether it's your big day, a night out, or just
+            confidence. Whether it&apos;s your big day, a night out, or just
             because—you deserve to look as radiant as you feel. From subtle
             elegance to bold statement looks, every brushstroke is tailored to
             celebrate you.
@@ -39,7 +40,7 @@ function About({}: Props) {
           </Link>
         </div>
 
-        <img
+        <Image
           className="object-cover h-96 scale-150 bottom-24 absolute right-24"
           src="/assets/images/person.png"
           alt="photo"

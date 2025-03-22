@@ -47,6 +47,7 @@ type ServiceForm = {
 
 function EditServiceForm({ service }: ServiceForm) {
   // Hooks -----------------------------------------------
+  // @ts-ignore
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,7 +55,7 @@ function EditServiceForm({ service }: ServiceForm) {
       price: service == null ? 500 : service.price,
       duration_in_minutes: service == null ? 60 : service.duration_in_minutes,
       category: !service ? "All Occassions" : service.category,
-      image: service == null ? "" : service.image,
+      image: service == null ? "" : service.image as string,
     },
   });
 

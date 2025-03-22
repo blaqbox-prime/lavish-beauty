@@ -1,11 +1,11 @@
-import { getBookingsCount, getCompletedBookingsCount, getConfirmedBookingsCount } from '@/services/BookingsService'
+import BookingService from '@/services/BookingsService'
 import React from 'react'
 
 type Props = {}
 
 async function ConfirmedBookings({}: Props) {
-
-    const confirmedBookings = await getConfirmedBookingsCount()
+    const bookingService = new BookingService()
+    const confirmedBookings = await bookingService.getConfirmedBookingsCount()
 
   return (
     <h4 className='text-2xl md:text-4xl font-black transition-all'>{confirmedBookings}</h4>

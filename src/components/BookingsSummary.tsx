@@ -1,26 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { getAllBookings } from '@/services/BookingsService'
-import { BookingRecord, CustomerRecord } from '@/types'
-
-import {
-    ColumnDef,
-    ColumnFiltersState,
-    SortingState,
-    VisibilityState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
-  } from "@tanstack/react-table"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu'
-import { Button } from './ui/button'
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
-import { format } from '@formkit/tempo'
-import StatusBadge from './StatusBadge'
-import { Checkbox } from './ui/checkbox'
+import BookingService from '@/services/BookingsService'
 import DataTable from './DataTable'
 
 type Props = {
@@ -30,8 +10,8 @@ type Props = {
 
 
 async function BookingsSummary({}: Props) {
-  
-    const data = await getAllBookings();
+    const bookingService = new BookingService();
+    const data = await bookingService.getAllBookings();
   
     return (
     <Card>

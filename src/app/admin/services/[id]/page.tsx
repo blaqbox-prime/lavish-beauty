@@ -3,13 +3,13 @@ import React from "react";
 import * as motion from "framer-motion/client";
 import DeleteServiceButton from "@/components/DeleteServiceButton";
 import EditServiceForm from "@/components/EditServiceForm";
-import { getServiceById } from "@/services/ServicesService";
+import ServicesService from "@/services/ServicesService";
 import { redirect } from 'next/navigation'
 
 
 async function ServicePage({ params }: { params: { id: string } }) {
- 
-  const service = await getServiceById(params.id)
+ const servicesService = new ServicesService();
+  const service = await servicesService.getServiceById(params.id)
 
   if (!service) {
     return redirect('/admin/services')
