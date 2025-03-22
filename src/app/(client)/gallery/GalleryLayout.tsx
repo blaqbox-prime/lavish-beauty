@@ -15,7 +15,7 @@ const GalleryLayout = ({images} : Props) => {
             >
                 <Masonry>
                     {
-                       document.readyState == "interactive" && images.map((image, index) => (
+                       images.map((image, index) => (
                             <div key={index} className=" w-full md:w-[300px] h-full overflow-hidden hover:brightness-110 transition-all animate-in animate-ease-in-out delay-500">
                                 <Image  src={image} alt="image" className="w-full rounded-xl h-full object-cover transition-all duration-500 hover:scale-110 shadow-lg " />
                             </div>
