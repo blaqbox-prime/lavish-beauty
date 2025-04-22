@@ -15,6 +15,7 @@ export type Location = "Lephalale" | "Nylstroom" | "House Call" | "Other"
 type Props = {
   location?: Location,
   onChange: (location: Location) => void,
+  className?: string
 }
 
 export const AVAILABLE_LOCATIONS : Location[] = [
@@ -24,10 +25,10 @@ export const AVAILABLE_LOCATIONS : Location[] = [
   'Other',
 ]
 
-function LocationPicker({location = 'Lephalale', onChange}: Props) {
+function LocationPicker({location = 'Lephalale', onChange, className}: Props) {
   return (
     <Select onValueChange={(value: Location) => {onChange(value)}}>
-  <SelectTrigger className="w-[180px]">
+  <SelectTrigger className={`${className}`}>
     <SelectValue placeholder="Where is the appointment?" defaultValue={location ?? undefined} />
   </SelectTrigger>
   <SelectContent>

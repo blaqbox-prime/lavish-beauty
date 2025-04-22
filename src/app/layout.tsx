@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 const playfair_Display = Playfair_Display({
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair_Display.variable} max-w-screen-xl`}>
+      <body className={`${playfair_Display.variable} max-w-screen-2xl mx-auto`}>
         {children}
         
       <Toaster />

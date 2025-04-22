@@ -1,8 +1,7 @@
-import { BookingRecord } from '@/types';
+import {BookingRecord, CancellationReason} from '@/types';
 import { format } from '@formkit/tempo';
-import React from 'react'
 
-export default function BookingCancellation(booking:BookingRecord) {
+export default function BookingCancellation(booking:BookingRecord, cancellation_reason?:string | CancellationReason) {
     return `
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -127,7 +126,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tr>
     <td class="v-text-align" style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="https://phuduhtxapuzbkvindrj.supabase.co/storage/v1/object/public/pictures/public/Time%20management-pana.png" alt="image" title="image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 70%;max-width: 406px;" width="406"/>
+      <img align="center" border="0" src="https://phuduhtxapuzbkvindrj.supabase.co/storage/v1/object/public/pictures/public/undraw_cancel_7zdh.png" alt="image" title="image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 70%;max-width: 406px;" width="406"/>
       
     </td>
   </tr>
@@ -161,7 +160,12 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <p style="line-height: 140%;">Hi, ${booking.customer?.name}. Please be notified that our appointment has been cancelled for the following date: </p>
 <p style="line-height: 140%;"><strong>${format(booking.booking_date, 'full')}</strong> 2014</p>
 <p style="line-height: 140%;">at <span style="color: #92400e; line-height: 19.6px;"><strong>${format(booking.booking_date, {time: 'short'} ,'de')}</strong></span></p>
-  </div>
+
+ <p style="line-height: 140%;"><span style="color: #92400e; line-height: 19.6px;"><strong>Reason:</strong></span> <br> 
+   ${cancellation_reason} 
+</p>
+  
+</div>
 
       </td>
     </tr>
@@ -392,6 +396,5 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 </body>
 
 </html>
-
-  `
+`
 }

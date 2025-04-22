@@ -17,7 +17,7 @@ async function GalleryPage({}: Props) {
             get ready for flawless, unforgettable looks tailored to your style.</p>
 
         <GalleryLayout images={images}  />
-
+          <div className="h-[200px]"></div>
     </main>
   )
 }

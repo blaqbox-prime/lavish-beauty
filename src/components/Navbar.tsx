@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, {useEffect} from 'react'
 import Logo from "@/components/Logo";
 import {AlignRight} from "lucide-react";
 import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet";
@@ -23,6 +23,10 @@ function Navbar({}: NavContainerProps) {
 
     const [activeTab, setActiveTab] = React.useState(0)
     const isMobile = useMediaQuery(`(max-width: ${BREAKPOINT}px)`)
+
+    useEffect(() => {
+    console.log(activeTab)
+    }, [activeTab]);
 
     const handleClick = (index: number) => {
         setActiveTab(index)

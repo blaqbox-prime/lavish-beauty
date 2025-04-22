@@ -14,7 +14,7 @@ function ServicesLayout({services}: Props) {
     // @ts-ignore
     return services == null ? null :
      (
-        <div className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:w-fit mx-auto gap-8 rounded-xl"}>
+        <div className={" mb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:w-fit mx-auto gap-8 rounded-xl"}>
             {
                 services?.map((service: ServiceRecord) => (
                     <motion.article

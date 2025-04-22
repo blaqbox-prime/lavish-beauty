@@ -25,6 +25,7 @@ export async function GET(request: NextRequest){
             if (client){
                 await sendBookingCancellationNotice(booking, CancellationReason.Deposit_Not_Paid,client.email)
             }
+
             ++count;
         }
     })
