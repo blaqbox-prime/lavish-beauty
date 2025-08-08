@@ -36,6 +36,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.453.0",
     "mailersend": "^2.3.0",
+    "motion": "^12.12.1",
     "next": "14.2.6",
     "nodemailer": "^6.9.16",
     "react": "^18",

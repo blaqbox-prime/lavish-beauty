@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
+import {Inter, Playfair_Display} from "next/font/google";
 import Navbar from "@/components/Navbar";
 import { ToastProvider } from "@/components/ui/toast";
+import {AnimatePresence} from "motion/react";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+const playfair_Display = Playfair_Display({
+  weight: "400",
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair-display',
+})
+
 
 export const metadata: Metadata = {
   title: "Lavish Beauty",
@@ -21,14 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-        {/* <Toaster /> */}
+      <>
+        {/* <Navbar /> */}
+        <AnimatePresence mode={"wait"}>
+          {children}
+        </AnimatePresence>
         <ToastProvider />
-        </body>
-    </html>
+        <Footer />
+      </>
   );
 }
 

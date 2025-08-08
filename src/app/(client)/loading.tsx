@@ -1,23 +1,16 @@
 "use client"
 import React from 'react'
 import { Rings } from 'react-loader-spinner'
+import IntroSlide from "@/components/IntroSlide";
 
-type Props = {}
+type Props = {
+  title: string,
+  subtitle: string
+}
 
-function loading({}: Props) {
+function loading({title, subtitle}: Props) {
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center gap-4'>
-        <Rings
-  visible={true}
-  height={"150"}
-  width="150"
-  color="#d97706"
-  ariaLabel="rings-loading"
-  wrapperStyle={{}}
-  wrapperClass=""
-  />
-
-    <h1 className='text-6xl text-amber-950'>Loading</h1>
 
     </div>
   )

@@ -91,3 +91,12 @@
 Service Cards Homepage
 */
 
+.text-bg{
+  background: url('../../public/assets/images/women.jpg');
+  -webkit-background-clip: text;
+  background-position: center;
+  background-size: cover;
+  -webkit-text-fill-color: transparent;
+  background-position: center;
+  padding: 0 1rem;
+}
