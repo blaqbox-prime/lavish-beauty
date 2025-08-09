@@ -27,6 +27,7 @@ type Props = {
     className?: string
 }
 
+// @ts-ignore
 export function DatePickerWithPresets({onChange, defaultDate = new Date(), className = ''} : Props) {
   const [date, setDate] = React.useState<Date>(defaultDate)
 

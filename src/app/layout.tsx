@@ -3,6 +3,7 @@ import { Montserrat, Playfair_Display, } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
+
 const montserrat = Montserrat({ subsets: ["latin"] });
 const playfair_Display = Playfair_Display({
   weight: "400",
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair_Display.variable} max-w-screen-2xl mx-auto ${montserrat.className}`}>
+      <body className={`${playfair_Display.variable} mx-auto ${montserrat.className}`}>
         {children}
       <Toaster />
         </body>

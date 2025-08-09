@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
       >
         {icon && icon}
-        <input className="flex-1 focus:outline-none focus:border-none" type={type} ref={ref} {...props} />
+        <input className="flex-1 focus:outline-none focus:border-none bg-transparent" type={type} ref={ref} {...props} />
       </div>
     );
   }

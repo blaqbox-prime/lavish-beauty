@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("./styles/introloader.css");
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -85,18 +86,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/*
-Service Cards Homepage
-*/
-
-.text-bg{
-  background: url('../../public/assets/images/women.jpg');
-  -webkit-background-clip: text;
-  background-position: center;
-  background-size: cover;
-  -webkit-text-fill-color: transparent;
-  background-position: center;
-  padding: 0 1rem;
 }

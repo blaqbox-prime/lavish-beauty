@@ -29,14 +29,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <>
+      <div className="bg-light min-h-screen">
         {/* <Navbar /> */}
         <AnimatePresence mode={"wait"}>
           {children}
         </AnimatePresence>
         <ToastProvider />
-        <Footer />
-      </>
+        {/* <Footer /> */}
+      </div>
   );
 }
 
