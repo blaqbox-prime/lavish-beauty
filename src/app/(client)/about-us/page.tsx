@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
 import React from 'react'
 import {images} from "@/constants";
+import Image from 'next/image';
 
 type Props = {}
 
@@ -76,7 +77,7 @@ function AboutUs({}: Props) {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <img
+                <Image
                     key={i}
                     src={images.everyOccation.src}
                     alt={`Gallery ${i}`}

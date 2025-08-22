@@ -8,6 +8,7 @@ import palesa from '../public/assets/images/evelyn-portrait.jpg'
 import makeupBanner from '../public/assets/images/hero-banner-removebg.png'
 import womenInACircle from '../public/assets/images/women.jpg'
 import avatar from '../public/assets/images/palesa_avatar.jpg'
+import homebg from '../public/assets/images/homebg.jpg';
 
 export const images = {
     "everyOccation":every_occation,
@@ -16,7 +17,8 @@ export const images = {
     "palesa": palesa,
     "makeupBanner": makeupBanner,
     "womenBg": womenInACircle,
-    "avatar": avatar
+    "avatar": avatar,
+    "homebg": homebg,
 }
 
 export const icons = {

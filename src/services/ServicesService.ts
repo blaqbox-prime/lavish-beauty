@@ -102,11 +102,12 @@ export default class ServicesService {
     async getTop5Services(){
         const { data, error } = await supabase.rpc('get_top_5_requested_services');
 
+        console.log('Top 5 Requested Services:', data);
+
         if (error) {
             console.error('Error fetching top 5 requested services:', error);
             return null;
         } else {
-            console.log('Top 5 Requested Services:', data);
             return data;
         }
     }

@@ -87,3 +87,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+.infinite-scroll-banner .scrolling-text {
+  display: inline-flex;
+  animation: scroll 60s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

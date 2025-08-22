@@ -31,9 +31,7 @@ export default function RootLayout({
   return (
       <div className="bg-light min-h-screen">
         {/* <Navbar /> */}
-        <AnimatePresence mode={"wait"}>
           {children}
-        </AnimatePresence>
         <ToastProvider />
         {/* <Footer /> */}
       </div>

@@ -19,7 +19,7 @@ const GalleryLayout = ({images} : Props) => {
                     {
                        images.map((image, index) => (
                             <motion.div
-                                {...animScrollTrigger(scaleIn)}
+                                // {...animScrollTrigger(scaleIn)}
                                 transition={{duration: 2, ease: "easeInOut"}}
                                 key={image} className=" w-full md:w-[300px] h-full overflow-hidden hover:brightness-110 transition-all animate-in animate-ease-in-out delay-500">
                                 <Image  src={image} alt="image" width={300} height={500} className="w-full rounded-xl h-full object-cover transition-all duration-500 hover:scale-110 shadow-lg " />

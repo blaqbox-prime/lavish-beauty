@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import supabase from '@/database/supabase'
 import _ from "lodash";
 
-export const dynamic = 'force-static'
-export const revalidate = 60 * 60 //revalidate every hour
 
 export async function GET(request: NextRequest){
   

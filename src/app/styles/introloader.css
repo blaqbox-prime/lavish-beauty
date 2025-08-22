@@ -104,11 +104,11 @@
         font-weight: 400;
     }
 
-    .word, .count .digit {
+    .line, .word, .count .digit {
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 
-    .count .digit h1 {
+    .line, .count .digit h1 {
         position: relative;
         transform: translateY(120%);
         will-change: transform;
@@ -143,3 +143,22 @@
         transform: rotate(365deg);
     }
 }
+
+    .line, .word, nav, .cta  {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .line, .count .digit h1 {
+        position: relative;
+        transform: translateY(120%);
+        will-change: transform;
+    }
+
+    nav {
+        transform: translateY(-120%);
+    }
+
+
+    .locations, .cta {
+        opacity: 0;
+    }

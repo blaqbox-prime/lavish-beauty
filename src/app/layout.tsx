@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair_Display.variable} mx-auto ${montserrat.className}`}>
+      <body className={`${playfair_Display.variable} mx-auto ${montserrat.className} overflow-x-hidden`}>
         {children}
       <Toaster />
         </body>

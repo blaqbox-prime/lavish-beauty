@@ -12,7 +12,7 @@ function ContactPage({}: Props) {
         <Image src={images.womenBg} alt='women' className=' transition-all duration-1000 hover:scale-110'/>
         <div className="message z-40 absolute max-w-48 bottom-8 left-8 text-white">
           <q className='font-bold text-lg'>
-          "Every brushstroke, every blend, every moment spent enhancing beauty is a privilege. Thank you for trusting me with your radiance—your support means the world!"
+          &quot;Every brushstroke, every blend, every moment spent enhancing beauty is a privilege. Thank you for trusting me with your radiance—your support means the world!&quot;
         </q>
         <div className="flex items-center gap-4">
             <Image src={images.avatar} alt='avatar' className='h-9 w-9 rounded-full'/>

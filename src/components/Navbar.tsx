@@ -7,33 +7,26 @@ import Logo from "@/components/Logo"
 import { AlignRight } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useMediaQuery } from "usehooks-ts"
+import { usePathname } from 'next/navigation'
 
 const BREAKPOINT = 768
-const navItems = ["Home", "Services", "Gallery", "About Us", "Contact"]
+const navItems = ["Gallery", "Contact"]
 
 function Navbar({className}: {className: String}) {
-    const [activeTab, setActiveTab] = useState(0)
     const isMobile = useMediaQuery(`(max-width: ${BREAKPOINT}px)`)
 
-    useEffect(() => {
-        console.log(activeTab)
-    }, [activeTab])
-
-    const handleClick = (index: number) => {
-        setActiveTab(index)
-    }
+    const path = usePathname();
 
     const generateHref = (item: string) => {
-        return item === "Home" ? "/" : `/${item.toLowerCase().split(" ").join("-")}`
+        return `/${item.toLowerCase().split(" ").join("-")}`
     }
 
     const NavLink = ({ item, index, className = "" }: { item: string, index: number, className?: string }) => (
         <li 
             key={index} 
-            className={`${className} border p-2 transition-all border-transparent hover:text-amber-800 ${
-                activeTab === index ? 'text-amber-800 border-b-2 border-b-amber-800' : ''
+            className={`${className} p-2 transition-all border-transparent hover:text-primary text-light font-semibold hover:text-theme_primary ${
+                path.startsWith(`/${item.toLowerCase()}`) ? 'text-theme_primary' : ''
             }`} 
-            onClick={() => handleClick(index)}
         >
             <Link href={generateHref(item)}>
                 {item}
@@ -43,7 +36,7 @@ function Navbar({className}: {className: String}) {
 
     if (isMobile) {
         return (
-            <div className={`p-4 flex items-center justify-between ${className}`}>
+            <nav className={`p-4 flex items-center justify-between ${className}`}>
                 <Logo className='text-white'/>
                 <Sheet>
                     <SheetTrigger>
@@ -60,18 +53,19 @@ function Navbar({className}: {className: String}) {
                         ))}
                     </SheetContent>
                 </Sheet>
-            </div>
+            </nav>
         )
     }
 
     return (
-        <nav className='flex flex-col items-center justify-center gap-2 py-4'>
-            <Image 
+        <nav className={`flex items-center justify-between gap-2 py-4 w-full  ${className}`}>
+            {/* <Image 
                 src="/logo-transparent-2.png"
                 alt='logo'
                 width={200}
                 height={300}
-            />
+            /> */}
+            <Logo className='text-white'/>
             <ul className='flex items-center gap-8'>
                 {navItems.map((item, index) => (
                     <NavLink key={index} item={item} index={index} />
