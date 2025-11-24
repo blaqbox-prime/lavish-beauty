@@ -24,7 +24,7 @@ function Navbar({className}: {className: String}) {
     const NavLink = ({ item, index, className = "" }: { item: string, index: number, className?: string }) => (
         <li 
             key={index} 
-            className={`${className} p-2 transition-all border-transparent hover:text-primary text-light font-semibold hover:text-theme_primary ${
+            className={`${className} p-2 transition-all border-transparent hover:text-primary text-light hover:text-accent_light ${
                 path.startsWith(`/${item.toLowerCase()}`) ? 'text-theme_primary' : ''
             }`} 
         >

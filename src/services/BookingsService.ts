@@ -16,7 +16,8 @@ export default class BookingService {
 
 
     if(error){
-      throw new Error(error.message)
+      console.error(error.message)
+      return []
     }
 
     return data;

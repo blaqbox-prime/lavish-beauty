@@ -7,7 +7,7 @@ import { icons, images } from "@/constants";
 
 function Footer() {
     return (
-        <footer className="p-6 border-t border-amber-100 bg-white text-gray-600 max-w-screen-xl mx-auto">
+        <footer className="p-6 border-t border-amber-100 bg-light text-dark max-w-screen-xl mx-auto">
                 <div className="grid grid-cols-5 gap-4">
                     <div className="col-span-3 flex flex-col gap-4">
                         <Logo />
