@@ -23,6 +23,7 @@ import gallery11 from '../public/assets/images/gallery/11.jpg';
 import gallery12 from '../public/assets/images/gallery/12.jpg';
 import gallery13 from '../public/assets/images/gallery/13.jpg';
 import gallery14 from '../public/assets/images/gallery/14.jpg';
+import { BASE_URL } from './lib/utils';
 
 export const images = {
     "everyOccation":every_occation,
@@ -57,3 +58,9 @@ export const galleryImages = [
     gallery13,
     gallery14
 ]
+
+export const ROUTES = {
+    CLIENTS: {INDEX: `${BASE_URL}/clients`},
+    BOOKINGS: {INDEX: `${BASE_URL}/bookings`},
+    SERVICE: {INDEX: `${BASE_URL}/services`},
+}

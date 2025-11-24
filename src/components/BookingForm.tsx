@@ -19,7 +19,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import supabase from "@/database/supabase";
 import { useToast } from "@/hooks/use-toast";
 import {
   Select,
@@ -43,6 +42,7 @@ import { Enums, Tables, TablesInsert } from "@/database/database";
 import { forEach } from "lodash";
 import BookingService from "@/services/BookingsService";
 import { sendNotification } from "@/services/MailServices";
+import { ROUTES } from "@/constants";
 
 const formSchema = z.object({
   customer: z.number().min(1),
@@ -79,26 +79,24 @@ function BookingForm({ booking }: BookingForm) {
 
   // states --------------------------------------------------
   const [loading, setLoading] = React.useState(false);
-  const [clients, setclients] = useState<any | null>([]);
+  const [clients, setclients] = useState<any[] | null>([]);
   const [services, setServices] = useState<ServiceRecord[] | null>([]);
-  const clientService = useMemo(() => new ClientService(), []);
-  const servicesService = useMemo(() => new ServicesService(), []);
   const bookingService = new BookingService();
   
   // Get Form's Drop down menu options ----------------------------
   useEffect(() => {
     // fetch services
     const fetchServicesOptions = async () => {
-      const services = await servicesService.getAllServices();
+      const services = await fetch(`${ROUTES.SERVICE.INDEX}`)
       if (services != null) {
-        setServices(services);
+        setServices(await services.json());
       }
     };
     // fetch users
     const fetchUsersOptions = async () => {
-      const clients = await clientService.getAllClients();
+      const clients = await fetch(`${ROUTES.CLIENTS.INDEX}`);
       if (clients != null) {
-        setclients(clients);
+        setclients(await clients.json());
       }
     };
 
@@ -106,7 +104,7 @@ function BookingForm({ booking }: BookingForm) {
 
     fetchServicesOptions();
     fetchUsersOptions();
-  }, [clientService, servicesService]);
+  }, []);
 
   // Set Services Default ---------------------------
 

@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+// --- Custom Enum Type (from USER-DEFINED "Location") ---
+enum Location {
+  Other    @map("Other")
+  Lephalale
+  Nylestroom
+  House_Call  @map("House Call")
+}
+
+// --- Data Models (Tables) ---
+
+model Customer {
+  id         String   @id @db.Uuid
+  name       String    @db.Text
+  email      String    @unique @db.Text
+  phone      String    @db.Text
+  created_at DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  // Relationships
+  bookings Booking[]
+
+  @@map("customer")
+}
+
+model Category {
+  id         String   @id @db.Uuid
+  created_at DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  name       String    @unique @db.Text
+
+  // Relationships
+  services Service[]
+
+  @@map("categories")
+}
+
+model Service {
+  id                  String    @id @db.Uuid
+  service_name        String    @map("service_name") @db.Text
+  price               Decimal // numeric in SQL maps to Decimal in Prisma
+  duration_in_minutes Int       @map("duration_in_minutes") @db.Integer
+  created_at          DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  image               String?   @db.Text
+  categoryName        String?   @map("category") @db.Text
+ 
+  // Relationships
+  category      Category? @relation(fields: [categoryName], references: [name])
+  booked_services BookedService[]
+
+  @@map("services")
+}
+
+model Booking {
+  id           String   @id @db.Uuid
+  customer_id  String    @map("customer_id") @db.Uuid 
+  booking_date DateTime  @map("booking_date") @db.Timestamptz(6)
+  status       String    @db.Text
+  created_at   DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  location     Location  @default(Other)
+
+  // Relationships
+  customer        Customer        @relation(fields: [customer_id], references: [id])
+  invoice         Invoice?
+  booked_services BookedService[]
+
+  @@map("bookings")
+}
+
+model BookedService {
+  id        String   @id @db.Uuid
+  booking_id String @map("booking_id") @db.Uuid
+  service_id String @map("service_id") @db.Uuid
+
+  // Relationships
+  booking Booking @relation(fields: [booking_id], references: [id])
+  service Service @relation(fields: [service_id], references: [id])
+
+  @@map("booked_service")
+}
+
+model Invoice {
+  id           String   @id @db.Uuid
+  booking_id   String    @unique @map("booking_id") @db.Uuid
+  total_amount Decimal // numeric in SQL maps to Decimal in Prisma
+  amount_paid  Decimal
+  invoice_date DateTime? @default(now()) @map("invoice_date") @db.Timestamptz(6)
+
+  // Relationships
+  booking Booking @relation(fields: [booking_id], references: [id])
+
+  @@map("invoice")
+}
+
+model Profile {
+  id         String    @id @db.Uuid // Mapped from UUID in SQL
+  username   String?   @unique @db.Text
+  created_at DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updated_at DateTime? @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  // NOTE: The foreign key to `auth.users(id)` cannot be defined directly in Prisma
+  // unless you have the `auth.users` table defined in this schema. 
+  // For standard deployment, this UUID is often managed externally (e.g., by Supabase/Auth0).
+
+  @@map("profiles")
+}

@@ -13,7 +13,6 @@ import {
 import React, {useMemo, useState} from "react";
 import { ArrowLeft, ArrowRight, DeleteIcon, Edit2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import ClientService from "@/services/ClientsService";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +24,7 @@ import {
 } from "./ui/dialog";
 import { toast } from "@/hooks/use-toast";
 import { useClients } from "@/zustand/store";
+import { ROUTES } from "@/constants";
 
 type ClientsTable = {
   clientsList: ClientRecord[];
@@ -32,7 +32,6 @@ type ClientsTable = {
 
 function ClientsTable({ clientsList = [] }: ClientsTable) {
   
-  const clientService = useMemo(() => new ClientService(), []);
   const NUM_PAGES = clientsList.length / 10;
   const page = useClients((state: any) => state.page)
   const start = useClients((state: any) => state.start)
@@ -44,7 +43,7 @@ function ClientsTable({ clientsList = [] }: ClientsTable) {
   const handleDelete = async (client: ClientRecord) => {
     // Implement your own logic for deleting a client
     console.log("Delete client with ID:", client.id);
-    const deleted = await clientService.deleteClient(client.id);
+    const deleted = await fetch(`${ROUTES.CLIENTS}?id=${client.id}`, {});
 
     if (deleted) {
 

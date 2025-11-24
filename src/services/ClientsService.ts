@@ -1,78 +1,75 @@
-import { TablesUpdate } from "@/database/database"
-import supabase from "@/database/supabase"
-import { ClientRecord } from "@/types"
+import prisma from "@/lib/prisma";
+
 
 export default class ClientService {
     async getClientByEmail(email: string) {
-        const { data, error } = await supabase.from('customer').select('*').eq('email', email).single()
-
-        if(error) {
-            console.log(error)
-            return null
+        try {
+            const client = await prisma.customer.findUnique({
+                where: { email },
+            });
+            return client;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
-
-        return data
-
     }
-    
+
     async createClient(clientInfo: { created_at?: string | null; email: string; id?: never; name: string; phone: string }) {
-        const { data, error } = await supabase.from('customer').insert(clientInfo).select()
-
-        if (error) {
-            console.log(error)
-            return false
+        try {
+            const client = await prisma.customer.create({
+                data: clientInfo,
+            });
+            return client;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        return data
     }
 
-
-    // Delete a client by ID
-    async deleteClient(id: string | number){
-        const {error} = await supabase.
-        from('customer').
-        delete().
-        eq('id', id)
-
-        if(error){
-            console.log(error)
-            return false
+    async deleteClient(id: string | number) {
+        try {
+            await prisma.customer.delete({
+                where: { id: Number(id) },
+            });
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        return true
     }
 
-    // Get All Clients
-    async getAllClients(){
-        const { data, error } = await supabase.from('customer').select('*')
-
-        if(error){
-            console.log(error)
-            return null
+    async getAllClients() {
+        try {
+            const clients = await prisma.customer.findMany();
+            return clients;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
-        return data
     }
 
-    // Update A Client
-    async updateClient(client: any){
-        const { error } = await supabase.from('customer').update(client).eq('id', client.id)
-
-        if(error){
-            console.log(error)
-            return false
+    async updateClient(client: any) {
+        try {
+            await prisma.customer.update({
+                where: { id: client.id },
+                data: client,
+            });
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        return true
     }
 
-    // Get A Client By ID
-    async getClientById(id: string | number){
-        const { data, error } = await supabase.from('customer').select('*').eq('id', id).single()
-
-        if(error){
-            console.log(error)
-            return null
+    async getClientById(id: string | number) {
+        try {
+            const client = await prisma.customer.findUnique({
+                where: { id: Number(id) },
+            });
+            return client;
+        } catch (error) {
+            console.log(error);
+            return null;
         }
-        return data
     }
-
 }
-
-
