@@ -1,11 +1,14 @@
 import React from 'react'
+
+
 import ServicesService from "@/services/ServicesService";
-import {ServiceRecord} from "@/types";
-import {ZAR} from "@/lib/utils";
-import * as motion from "framer-motion/client";
 import ServicesLayout from "@/app/(client)/services/ServicesLayout";
+import SectionHeading from "@/components/ui/SectionHeading";
+import IntroSlide from "@/components/IntroSlide";
 
 type Props = {}
+
+
 
 async function ServicesPage({}: Props) {
     const service = new ServicesService()
@@ -14,11 +17,11 @@ async function ServicesPage({}: Props) {
   console.log(services)
   return (
     <main className="mx-8">
-        <h1 className={`text-4xl text-center w-full text-amber-800 my-8
-            after:block after:h-[2px] after:w-[50px] after:origin-center after:bg-amber-800 after:bottom-0 after:mx-auto
-            after:animate-pulse animate-infinite`}>Our Services</h1>
-        <p className={"mx-auto text-lg text-center w-[500px] mb-8 "}>From glam makeovers to natural beauty touches
-            get ready for flawless, unforgettable looks tailored to your style.</p>
+        <IntroSlide title={"Services"} subtitle={"Get ready for flawless, unforgettable looks tailored to your style"}/>
+        <SectionHeading  title="Our Services" subtitle={
+            "From glam makeovers to natural beauty touches\n" +
+            "            get ready for flawless, unforgettable looks tailored to your style."
+        }/>
         <ServicesLayout services={services}/>
     </main>
   )

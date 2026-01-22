@@ -1,13 +1,34 @@
-import { NextRequest, NextResponse } from "next/server";
-import StorageService from "@/services/StorageService";
+import {NextRequest, NextResponse} from "next/server";
+import BookingService from "@/services/BookingsService";
+import {differenceInDays} from 'date-fns'
+import {sendBookingCancellationNotice} from "@/services/MailServices";
+import {BookingRecord, CancellationReason, ClientRecord} from "@/types";
+import ClientService from "@/services/ClientsService";
 
 
 export async function GET(request: NextRequest){
 
-    const service = new StorageService()
+    const service = new BookingService()
+    const clientService = new ClientService()
 
-    const data = await service.getGalleryImages()
+    const bookings = await service.getBookingByStatus("pending")
 
-    return NextResponse.json(data)
+    const now = new Date();
+
+    let count = 0;
+
+    bookings?.forEach( async (booking: BookingRecord) =>{
+        if (Math.abs(differenceInDays(now, new Date(booking?.booking_date))) <= 2){
+            const client: ClientRecord | null = await clientService.getClientById(booking?.customer_id)
+            let updated = await service.updateBookingStatus(booking?.id, "cancelled")
+
+            if (client){
+                await sendBookingCancellationNotice(booking, CancellationReason.Deposit_Not_Paid,client.email)
+            }
+            ++count;
+        }
+    })
+
+    return NextResponse.json({message: `${count} bookings updated`})
 
 }

@@ -3,6 +3,27 @@ import supabase from "@/database/supabase"
 import { ClientRecord } from "@/types"
 
 export default class ClientService {
+    async getClientByEmail(email: string) {
+        const { data, error } = await supabase.from('customer').select('*').eq('email', email).single()
+
+        if(error) {
+            console.log(error)
+            return null
+        }
+
+        return data
+
+    }
+    
+    async createClient(clientInfo: { created_at?: string | null; email: string; id?: never; name: string; phone: string }) {
+        const { data, error } = await supabase.from('customer').insert(clientInfo).select()
+
+        if (error) {
+            console.log(error)
+            return false
+        }
+        return data
+    }
 
 
     // Delete a client by ID

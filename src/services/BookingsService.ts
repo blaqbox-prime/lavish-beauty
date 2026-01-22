@@ -1,6 +1,6 @@
 import {Tables, TablesInsert} from "@/database/database";
 import supabase from "@/database/supabase"
-import {BookingRecord} from "@/types";
+import {BookingRecord, Status} from "@/types";
 import _ from "lodash";
 
 export default class BookingService {
@@ -11,11 +11,13 @@ export default class BookingService {
         .from('bookings')
         .select('*, customer(*)')
         .gte('booking_date', new Date().toISOString())
+        .not('status', 'in', '("cancelled", "completed", "missed")')
         .order('booking_date',{ascending: true})
 
 
     if(error){
-      throw new Error(error.message)
+      console.error(error.message)
+      return []
     }
 
     return data;
@@ -29,6 +31,7 @@ export default class BookingService {
         .select("*, customer(*)")
         .eq("id", id)
         .single();
+
     console.log(booking);
 
     const { data: services, error: servicesError } = await supabase
@@ -189,6 +192,20 @@ export default class BookingService {
       services: _.map(item.services, (bookedService: any) => bookedService.services),
     }));
   }
+
+  async getBookingByStatus(status: Status){
+    const {data, error} = await supabase
+    .from('bookings')
+    .select(`*`)
+    .eq('status', status)
+
+    if (error){
+      throw new Error("Failed to fetch bookings")
+    }
+
+    return data;
+  }
+
 
 }
 

@@ -16,7 +16,8 @@ import { addDays, isSameDay } from "date-fns";
 type Props = {
     onChange: (value: string) => void,
     times?: string[],
-    selectedDate?: Date
+    selectedDate?: Date,
+    className?: string
 };
 
 const DEFAULT_TiMES: TimeSlot[] = [
@@ -33,7 +34,7 @@ const DEFAULT_TiMES: TimeSlot[] = [
   "19:00",
 ];
 
-function TimePicker({times, onChange, selectedDate = addDays(new Date(), 1)}: Props) {
+function TimePicker({times, onChange, selectedDate = addDays(new Date(), 1), className}: Props) {
 
     const slots = times ? times : DEFAULT_TiMES;
 
@@ -41,10 +42,10 @@ function TimePicker({times, onChange, selectedDate = addDays(new Date(), 1)}: Pr
 
   return (
     <Select onValueChange={(value: string) => {onChange(value)}}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className={`${className}`}>
         <SelectValue placeholder="Select a time slot" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent >
         <SelectGroup>
           <SelectLabel>Available Slots</SelectLabel>
           {

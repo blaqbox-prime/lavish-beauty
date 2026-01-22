@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, } from "next/font/google";
+import { Montserrat, Playfair_Display, } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 const playfair_Display = Playfair_Display({
   weight: "400",
   subsets: ['latin'],
@@ -27,9 +28,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair_Display.variable} max-w-screen-xl`}>
+      <body className={`${playfair_Display.variable} mx-auto ${montserrat.className} overflow-x-hidden`}>
         {children}
-        
       <Toaster />
         </body>
     </html>

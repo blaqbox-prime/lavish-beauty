@@ -17,19 +17,14 @@ export const metadata: Metadata = {
 
 function Dashboard() {
   return (
-    <motion.main>
+    <main>
      <div className="flex mb-4 justify-between items-center transition-all animate-in">
        {/* Greeting */}
        <GreetingTitle username='Evelyn' className='text-3xl font-bold'/>
      </div>
 
-     <motion.section
+     <section
         className="p-5 bg-amber-100 rounded-md relative mb-6"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{
-          y: 0,
-          opacity: 1,
-        }}
       >
         {/* Text */}
         <h2 className="font-bold text-xl text-amber-950 ">
@@ -54,7 +49,7 @@ function Dashboard() {
         className="hidden md:block absolute -bottom-2 right-0 scale-150"
         alt='image'
         />
-      </motion.section>
+      </section>
 
 
      {/* Stats */}
@@ -71,7 +66,7 @@ function Dashboard() {
         </div>
     </section>
    
-    </motion.main>
+    </main>
   )
 }
 

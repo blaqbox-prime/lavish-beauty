@@ -24,3 +24,20 @@ export type TimeSlot =
   | "19:00";
 
   export type Status = 'confirmed' | 'pending' | 'cancelled' | 'completed' | 'missed'
+
+export enum BookingStatus {
+  CONFIRMED = "confirmed",
+  PENDING = "pending",
+  CANCELLED = "cancelled",
+  COMPLETED = "completed",
+  MISSED = "missed",
+}
+
+  export enum CancellationReason {
+    No_Show = "No Show",
+    Customer_Request = "Customer Request",
+    Other = "Other",
+    Rescheduled = "Rescheduled",
+    Deposit_Not_Paid = 'Deposit Not Paid',
+
+  }

@@ -24,9 +24,11 @@ import {
 type Props = {
     onChange: (value: any) => void,
     defaultDate?: Date,
+    className?: string
 }
 
-export function DatePickerWithPresets({onChange, defaultDate = new Date()} : Props) {
+// @ts-ignore
+export function DatePickerWithPresets({onChange, defaultDate = new Date(), className = ''} : Props) {
   const [date, setDate] = React.useState<Date>(defaultDate)
 
   const handleSelect = (value: any) => {
@@ -41,8 +43,8 @@ export function DatePickerWithPresets({onChange, defaultDate = new Date()} : Pro
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
+            "justify-start text-left font-normal",
+            !date && "text-muted-foreground", className
           )}
         >
           <CalendarIcon />

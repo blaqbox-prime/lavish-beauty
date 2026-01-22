@@ -40,11 +40,13 @@ function About({}: Props) {
           </Link>
         </div>
 
-        <Image
-          className="object-cover h-96 scale-150 bottom-24 absolute right-24"
-          src="/assets/images/person.png"
-          alt="photo"
-        />
+        {/*<Image*/}
+        {/*  className="object-cover h-96 scale-150 bottom-24 absolute right-24"*/}
+        {/*  src="/assets/images/person.png"*/}
+        {/*  alt="photo"*/}
+        {/*  width={300}*/}
+        {/*  height={500}*/}
+        {/*/>*/}
       </div>
     </section>
   );

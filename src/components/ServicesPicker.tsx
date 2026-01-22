@@ -20,7 +20,7 @@ function ServicesPicker({onChange, field}: Props) {
 
     let selectedCount = useMemo(() => selected.reduce(
         (total: number) =>
-          total + 1,
+          total + 1, 0
       ), [selected])
 
     const servicesService = useMemo(() => new ServicesService(), [])
@@ -56,6 +56,7 @@ function ServicesPicker({onChange, field}: Props) {
                   if (!selected.includes(Number(value))) {
                     const newList = [...selected, Number(value)]
                     setSelected(newList);
+
                     // 
                     onChange(newList);
                     console.log(newList);

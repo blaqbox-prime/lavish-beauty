@@ -253,7 +253,7 @@ export type Database = {
       get_top_5_requested_services: {
         Args: Record<PropertyKey, never>
         Returns: {
-          service_id: number
+          id: number
           service_name: string
           price: number
           duration_in_minutes: number
